@@ -1,0 +1,230 @@
+/* public/css/main.css */
+
+/* 1. Reset básico y fuente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+  /* ================= Custom Theme ================ */
+  :root {
+    --primary: #4169E1;
+    --primary-light: #63A1FD;
+    --primary-dark: #27408B;
+    --secondary: #5A8EEE;
+    --bg-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    --bg: #eaf4ff;
+    --text: #2d3748;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+/* Fondo y layout global para toda la web */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+#main-content {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+}
+#auth-frame {
+  width: 100vw;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  max-height: 100vh;
+  border: none;
+  background: #fff;
+}
+@media (max-width: 800px) {
+  #auth-frame {
+    max-width: 98vw;
+  }
+}
+@media (max-width: 500px) {
+  #auth-frame {
+    max-width: 100vw;
+  }
+}
+
+  /* 2. Contenedor centrado */
+  .container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  /* 3. Encabezados */
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  /* 4. Formularios */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  input, select {
+    margin-top: 6px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108,99,255,0.2);
+  }
+  
+  /* 5. Botones */
+  button {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-gradient);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  }
+  
+  /* 6. Mensajes de feedback */
+  .message {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  .message.error {
+    background: #fff5f5;
+    color: #e53e3e;
+  }
+  .message.success {
+    background: #e6fffa;
+    color: #2f855a;
+  }
+  
+  /* 7. Enlaces (ej. “¿Ya tienes cuenta?”) */
+  a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* ================= Auth Card Flip ================ */
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    perspective: 1000px;
+  }
+  .card {
+    width: 360px;
+  }
+  .card-inner {
+    position: relative;
+    width: 100%;
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+  }
+  .card-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .card-face {
+    position: absolute;
+    width: 100%;
+    backface-visibility: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .card-front {
+    transform: rotateY(0deg);
+  }
+  .card-back {
+    transform: rotateY(180deg);
+  }
+  .link-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+
+  /* Loader */
+  .loader {
+    border: 4px solid var(--secondary);
+    border-top: 4px solid var(--primary-light);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin: 0.75rem auto;
+    animation: spin 1s linear infinite;
+  }
+  .loader.hidden {
+    display: none;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+}

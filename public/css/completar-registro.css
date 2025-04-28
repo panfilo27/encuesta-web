@@ -1,0 +1,179 @@
+/* completar-registro.css - Estilo profesional y moderno para el formulario de completar registro */
+
+body {
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #2c3e50;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.registro-form-section {
+  padding: 2.5rem 0 2rem 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.3rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 16px #0005, 0 1px 1px #000a;
+}
+
+.registro-form {
+  max-width: 740px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border: 1.5px solid #f0f0f5;
+  transition: box-shadow 0.2s;
+}
+.registro-form:hover {
+  box-shadow: 0 12px 40px rgba(44,62,80,0.16);
+}
+
+.registro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2.2rem;
+}
+.registro-grid-full {
+  grid-column: 1 / -1;
+}
+@media (max-width: 700px) {
+  .registro-form {
+    padding: 1.2rem 0.5rem;
+  }
+  .registro-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem 0;
+  }
+}
+.input-block {
+  margin-bottom: 0.8rem;
+}
+.input-block label {
+  font-size: 1.01rem;
+  color: #384050;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+  letter-spacing: 0.01em;
+}
+.input-block input,
+.input-block select {
+  width: 100%;
+  padding: 0.60rem 0.9rem;
+  border-radius: 6px;
+  border: 1.5px solid #cfd8dc;
+  font-size: 1.04rem;
+  background: #f7fafd;
+  color: #2c3e50;
+  margin-top: 0.15rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.input-block input:focus,
+.input-block select:focus {
+  border-color: #5b7fff;
+  box-shadow: 0 0 0 2px #5b7fff22;
+}
+.input-inline {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+.input-inline input[type="radio"],
+.input-inline input[type="checkbox"] {
+  accent-color: #5b7fff;
+  margin-right: 0.35rem;
+}
+.add-btn, .remove-btn {
+  background: linear-gradient(90deg, #5b7fff 0%, #4a90e2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.38rem 0.95rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 8px #5b7fff22;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.add-btn:hover {
+  background: linear-gradient(90deg, #4a90e2 0%, #5b7fff 100%);
+  box-shadow: 0 4px 16px #5b7fff33;
+}
+.remove-btn {
+  background: #e74c3c;
+  box-shadow: 0 2px 8px #e74c3c22;
+}
+.remove-btn:hover {
+  background: #c0392b;
+}
+
+button[type="submit"], .btn-signup {
+  width: 100%;
+  background: linear-gradient(90deg, #5b7fff 0%, #4a90e2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.85rem 0;
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-top: 1.3rem;
+  box-shadow: 0 4px 24px #5b7fff22;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+button[type="submit"]:hover, .btn-signup:hover {
+  background: linear-gradient(90deg, #4a90e2 0%, #5b7fff 100%);
+  box-shadow: 0 8px 32px #5b7fff33;
+}
+
+.message {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.07rem;
+  padding: 0.6rem 0.3rem;
+  border-radius: 6px;
+  background: #f8fafd;
+  color: #455;
+  min-height: 1.5rem;
+}
+.message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.message.error {
+  background: #ffebee;
+  color: #b71c1c;
+}
+
+/* Mejoras visuales para selects y listas dinámicas */
+#idiomas-list, #paquetes-list {
+  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
+}
+#idiomas-list .input-inline, #paquetes-list .input-inline {
+  margin-bottom: 0.4rem;
+}
+
+::-webkit-input-placeholder { color: #b0b7c3; }
+::-moz-placeholder { color: #b0b7c3; }
+:-ms-input-placeholder { color: #b0b7c3; }
+::placeholder { color: #b0b7c3; }
+
+/* Scrollbar estilizado */
+::-webkit-scrollbar {
+  width: 9px;
+  background: #f3f5fa;
+}
+::-webkit-scrollbar-thumb {
+  background: #b2becd;
+  border-radius: 5px;
+}

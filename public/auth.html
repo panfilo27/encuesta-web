@@ -1,0 +1,85 @@
+<!-- public/auth.html -->
+<!-- auth.html: solo el tabbar y el área dinámica para login/registro -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autenticación</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animated-forms.css" />
+  <link rel="stylesheet" href="css/completar-registro.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <section class="forms-section">
+  <h1 class="section-title">Bienvenido</h1>
+  <div class="forms">
+    <div class="form-wrapper is-active" id="tab-login">
+      <button type="button" class="switcher switcher-login">
+        Iniciar Sesión<span class="underline"></span>
+      </button>
+      <form class="form form-login" id="login-form">
+        <fieldset>
+          <div class="input-block">
+            <label for="login-email">Correo</label>
+            <input id="login-email" type="email" required />
+          </div>
+          <div class="input-block">
+            <label for="login-password">Contraseña</label>
+            <div class="password-block">
+              <input id="login-password" type="password" required />
+              <span class="toggle-password" data-target="login-password"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
+        <div id="login-loader" class="loader hidden"></div>
+        <div id="login-message" class="message"></div>
+      </form>
+    </div>
+    <div class="form-wrapper" id="tab-register">
+      <button type="button" class="switcher switcher-signup">
+        Registrarse<span class="underline"></span>
+      </button>
+      <form class="form form-signup" id="register-form">
+        <fieldset>
+          <div class="input-block">
+            <label for="signup-email">Correo</label>
+            <input id="signup-email" type="email" required />
+          </div>
+          <div class="input-block">
+            <label for="signup-password">Contraseña</label>
+            <div class="password-block">
+              <input id="signup-password" type="password" required />
+              <span class="toggle-password" data-target="signup-password"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="input-block">
+            <label for="signup-password-confirm">Confirmar contraseña</label>
+            <div class="password-block">
+              <input id="signup-password-confirm" type="password" required />
+              <span class="toggle-password" data-target="signup-password-confirm"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn-signup">Resgistrarse</button>
+        <div id="register-loader" class="loader hidden"></div>
+        <div id="register-message" class="message"></div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- Firebase CDN compat scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script src="js/firebase-init.js"></script>
+<script src="js/auth/spa-flow.js"></script>
+<script src="js/auth/auth-view.js"></script>
+  
+  <section id="completar-registro-spa" style="display:none"></section>
+  <section id="encuesta-spa" style="display:none"></section>
+</body>
+</html>
