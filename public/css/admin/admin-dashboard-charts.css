@@ -1,0 +1,170 @@
+/**
+ * admin-dashboard-charts.css
+ * Estilos para las gráficas del panel de administración
+ */
+
+/* Panel de gráficas */
+.charts-panel {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.charts-panel-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charts-panel-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+}
+
+.charts-panel-body {
+  padding: 20px;
+}
+
+.chart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+/* Contenedor de gráficas */
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 10px;
+}
+
+/* Tarjetas de gráficas */
+.chart-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.chart-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #fafafa;
+}
+
+.chart-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.chart-body {
+  padding: 15px;
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+}
+
+.chart-description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Loader para las gráficas */
+.chart-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.chart-loader .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.chart-no-data {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 3;
+}
+
+.chart-no-data p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .charts-panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .chart-actions {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

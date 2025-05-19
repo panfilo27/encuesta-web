@@ -1,0 +1,235 @@
+<!-- career-management.html - Gestión de Carreras y Administradores -->
+<div class="admin-view-content">
+  <div class="view-header">
+    <h1><i class="fas fa-university"></i> Gestión de Carreras y Administradores</h1>
+    <p>Administra las carreras disponibles y asigna jefes de departamento.</p>
+  </div>
+
+  <!-- Contenedor principal con dos columnas -->
+  <div class="career-management-container">
+    <!-- Columna izquierda: Listado de carreras -->
+    <div class="career-list-section card">
+      <div class="card-header">
+        <h2>Carreras Disponibles</h2>
+        <button id="btn-add-career" class="btn-primary">
+          <i class="fas fa-plus"></i> Agregar Carrera
+        </button>
+      </div>
+      <div class="card-body">
+        <div id="careers-loading" class="loading-indicator">
+          <i class="fas fa-spinner fa-spin"></i> Cargando carreras...
+        </div>
+        <div id="no-careers-message" class="no-data-message" style="display: none;">
+          <i class="fas fa-info-circle"></i> No hay carreras registradas.
+        </div>
+        <table id="careers-table" class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Jefe de Departamento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="careers-table-body">
+            <!-- Aquí se cargarán dinámicamente las carreras -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Administradores disponibles -->
+    <div class="admins-list-section card">
+      <div class="card-header">
+        <h2>Usuarios Registrados</h2>
+        <div class="search-container">
+          <input type="text" id="admin-search" placeholder="Buscar usuario..." class="search-input">
+          <button id="btn-search-admin" class="btn-secondary">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="admins-loading" class="loading-indicator">
+          <i class="fas fa-spinner fa-spin"></i> Cargando usuarios...
+        </div>
+        <div id="no-admins-message" class="no-data-message" style="display: none;">
+          <i class="fas fa-info-circle"></i> No hay usuarios disponibles.
+        </div>
+        <table id="admins-table" class="data-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol Actual</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="admins-table-body">
+            <!-- Aquí se cargarán dinámicamente los usuarios -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para agregar o editar carrera -->
+  <div id="career-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="career-modal-title">Agregar Nueva Carrera</h2>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="career-form">
+          <input type="hidden" id="career-id">
+          <div class="form-group">
+            <label for="career-name">Nombre de la Carrera:</label>
+            <input type="text" id="career-name" required>
+          </div>
+          <div class="form-group">
+            <label for="career-code">Código/Abreviatura:</label>
+            <input type="text" id="career-code" required>
+          </div>
+          <div class="form-group">
+            <label for="career-faculty">Facultad o Departamento:</label>
+            <input type="text" id="career-faculty">
+          </div>
+          <div class="form-group">
+            <label for="career-admin">Jefe de Departamento:</label>
+            <select id="career-admin">
+              <option value="">-- Seleccionar Jefe de Departamento --</option>
+              <!-- Las opciones se cargarán dinámicamente -->
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="btn-save-career" class="btn-primary">Guardar</button>
+            <button type="button" id="btn-cancel-career" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para cambiar roles de usuario -->
+  <div id="role-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="role-modal-title">Modificar Rol de Usuario</h2>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="role-form">
+          <input type="hidden" id="user-id">
+          <div class="form-group">
+            <p id="user-info-display">Usuario: <span id="user-name-display"></span> (<span id="user-email-display"></span>)</p>
+          </div>
+          <div class="form-group">
+            <label for="user-role">Seleccionar Rol:</label>
+            <select id="user-role" required>
+              <option value="usuario">Usuario Regular</option>
+              <option value="admin">Administrador</option>
+              <option value="jefeDepartamento">Jefe de Departamento</option>
+            </select>
+          </div>
+          <div class="form-group career-assignment" style="display: none;">
+            <label for="assigned-career">Asignar a Carrera:</label>
+            <select id="assigned-career">
+              <option value="">-- Seleccionar Carrera --</option>
+              <!-- Las opciones se cargarán dinámicamente -->
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="btn-save-role" class="btn-primary">Guardar</button>
+            <button type="button" id="btn-cancel-role" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sección de Gestión de Noticias -->
+  <div class="view-header news-header">
+    <h1><i class="fas fa-newspaper"></i> Gestión de Noticias</h1>
+    <p>Publica y administra noticias para los estudiantes.</p>
+  </div>
+  
+  <div class="news-management-container">
+    <!-- Columna izquierda: Formulario para crear noticias -->
+    <div class="news-create-section card">
+      <div class="card-header">
+        <h2>Publicar Nueva Noticia</h2>
+      </div>
+      <div class="card-body">
+        <form id="news-form">
+          <div class="form-group">
+            <label for="news-title">Título:</label>
+            <input type="text" id="news-title" class="form-control" required placeholder="Escribe un título llamativo">
+          </div>
+          <div class="form-group">
+            <label for="news-content">Contenido:</label>
+            <textarea id="news-content" class="form-control" rows="5" required placeholder="Escribe el contenido de la noticia"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="news-career">Visible para:</label>
+            <select id="news-career" class="form-control">
+              <option value="all">Todas las carreras</option>
+              <!-- Las opciones de carrera se cargarán dinámicamente -->
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn-secondary">Limpiar</button>
+            <button type="submit" id="btn-publish-news" class="btn-primary">
+              <i class="fas fa-paper-plane"></i> Publicar Noticia
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Listado de noticias -->
+    <div class="news-list-section card">
+      <div class="card-header">
+        <h2>Noticias Publicadas</h2>
+        <div class="filter-container">
+          <select id="news-filter" class="filter-select">
+            <option value="all">Todas las carreras</option>
+            <!-- Las opciones de filtro se cargarán dinámicamente -->
+          </select>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="news-loading" class="loading-indicator">
+          <i class="fas fa-spinner fa-spin"></i> Cargando noticias...
+        </div>
+        <div id="no-news-message" class="no-data-message" style="display: none;">
+          <i class="fas fa-info-circle"></i> No hay noticias publicadas.
+        </div>
+        <div id="news-list" class="news-items-container">
+          <!-- Aquí se cargarán dinámicamente las noticias -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal para ver detalles de noticia -->
+  <div id="news-detail-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="news-detail-title"></h2>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="news-meta">
+          <span class="news-date"><i class="far fa-calendar-alt"></i> <span id="news-detail-date"></span></span>
+          <span class="news-target"><i class="fas fa-users"></i> <span id="news-detail-target"></span></span>
+        </div>
+        <div class="news-content-display" id="news-detail-content"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-news" class="btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+        <button id="btn-close-news-detail" class="btn-secondary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

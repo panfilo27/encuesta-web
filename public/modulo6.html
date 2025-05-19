@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 6 - Desempeño Profesional</title>
+  
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="css/main.css" /><!-- Agregado para consistencia con el fondo -->
+  <link rel="stylesheet" href="css/animated-forms.css" /><!-- Agregado para consistencia con el módulo 3 -->
+  <link rel="stylesheet" href="css/encuesta.css" />
+  <link rel="stylesheet" href="css/hourglass-loader.css" />
+  <link rel="stylesheet" href="css/user-profile.css" />
+  <link rel="stylesheet" href="css/modern-buttons.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/modulo6.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Placeholder para cargar el navbar dinámicamente -->
+  <div id="navbar-placeholder"></div>
+  <!-- Preloader -->
+  <div id="preloader" class="hourglass-loader">
+    <div class="inner"></div>
+  </div>
+
+  <div class="overlay"></div>
+  <div class="registro-form-section">
+    <form id="modulo6-form" class="registro-form">
+      <div id="wizard">
+        <!-- Datos de desempeño profesional -->
+        <div class="wizard-step" data-step="0">
+          <!-- Encabezado del módulo -->
+          <div class="module-header">
+            <h2 class="module-title">Sección 6 - Desempeño Profesional</h2>
+            <div class="progress-counter">
+              <span id="questions-completed">0</span>/13 preguntas respondidas
+            </div>
+          </div>
+          
+          <!-- Pregunta 1: Eficiencia para realizar actividades laborales -->
+          <div class="desempeno-card" id="seccion-eficiencia">
+            <h3>Eficiencia para realizar las actividades laborales, en relación con su formación académica</h3>
+            <div class="rating-options">
+              <div class="rating-option">
+                <input type="radio" id="eficiencia_muy_eficiente" name="eficiencia" value="Muy eficiente">
+                <label for="eficiencia_muy_eficiente">Muy eficiente</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="eficiencia_eficiente" name="eficiencia" value="Eficiente">
+                <label for="eficiencia_eficiente">Eficiente</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="eficiencia_poco_eficiente" name="eficiencia" value="Poco eficiente">
+                <label for="eficiencia_poco_eficiente">Poco eficiente</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="eficiencia_deficiente" name="eficiencia" value="Deficiente">
+                <label for="eficiencia_deficiente">Deficiente</label>
+              </div>
+            </div>
+            <div class="validation-indicator">Por favor, seleccione una opción</div>
+          </div>
+
+          <!-- Pregunta 2: Calificación de formación académica -->
+          <div class="desempeno-card" id="seccion-formacion">
+            <h3>Cómo califica su formación académica con respecto a su desempeño laboral</h3>
+            <div class="rating-options">
+              <div class="rating-option">
+                <input type="radio" id="formacion_excelente" name="formacion" value="Excelente">
+                <label for="formacion_excelente">Excelente</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="formacion_bueno" name="formacion" value="Bueno">
+                <label for="formacion_bueno">Bueno</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="formacion_regular" name="formacion" value="Regular">
+                <label for="formacion_regular">Regular</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="formacion_malo" name="formacion" value="Malo">
+                <label for="formacion_malo">Malo</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="formacion_pesimo" name="formacion" value="Pésimo">
+                <label for="formacion_pesimo">Pésimo</label>
+              </div>
+            </div>
+            <div class="validation-indicator">Por favor, seleccione una opción</div>
+          </div>
+
+          <!-- Pregunta 3: Utilidad de las residencias/prácticas profesionales -->
+          <div class="desempeno-card">
+            <h3>Utilidad de las residencias/prácticas profesionales para su desarrollo laboral y profesional</h3>
+            <div class="rating-options">
+              <div class="rating-option">
+                <input type="radio" id="residencias_excelente" name="residencias" value="Excelente">
+                <label for="residencias_excelente">Excelente</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="residencias_bueno" name="residencias" value="Bueno">
+                <label for="residencias_bueno">Bueno</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="residencias_regular" name="residencias" value="Regular">
+                <label for="residencias_regular">Regular</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="residencias_malo" name="residencias" value="Malo">
+                <label for="residencias_malo">Malo</label>
+              </div>
+              <div class="rating-option">
+                <input type="radio" id="residencias_pesimo" name="residencias" value="Pésimo">
+                <label for="residencias_pesimo">Pésimo</label>
+              </div>
+            </div>
+            <div class="validation-indicator">Por favor, seleccione una opción</div>
+          </div>
+
+          <!-- Pregunta 4: Aspectos que valora la empresa/organismo -->
+          <div class="desempeno-card" id="seccion-aspectos">
+            <h3>Aspectos que valora la empresa/organismo para la contratación de egresados</h3>
+            <p class="valoracion-header" style="text-align: center;">1 (Poco) ... 5 (Mucho)</p>
+            
+            <table class="valoracion-table">
+              <thead>
+                <tr>
+                  <th>Aspecto</th>
+                  <th>Valoración</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1. Área o Campo de Estudio</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="area_1" name="area_estudio" value="1">
+                        <label for="area_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="area_2" name="area_estudio" value="2">
+                        <label for="area_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="area_3" name="area_estudio" value="3">
+                        <label for="area_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="area_4" name="area_estudio" value="4">
+                        <label for="area_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="area_5" name="area_estudio" value="5">
+                        <label for="area_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2. Titulación</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="titulacion_1" name="titulacion" value="1">
+                        <label for="titulacion_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="titulacion_2" name="titulacion" value="2">
+                        <label for="titulacion_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="titulacion_3" name="titulacion" value="3">
+                        <label for="titulacion_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="titulacion_4" name="titulacion" value="4">
+                        <label for="titulacion_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="titulacion_5" name="titulacion" value="5">
+                        <label for="titulacion_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3. Experiencia laboral/práctica (antes de egresar)</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="experiencia_1" name="experiencia" value="1">
+                        <label for="experiencia_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="experiencia_2" name="experiencia" value="2">
+                        <label for="experiencia_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="experiencia_3" name="experiencia" value="3">
+                        <label for="experiencia_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="experiencia_4" name="experiencia" value="4">
+                        <label for="experiencia_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="experiencia_5" name="experiencia" value="5">
+                        <label for="experiencia_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4. Competencia laboral (resolución de problemas, análisis, etc.)</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="competencia_1" name="competencia" value="1">
+                        <label for="competencia_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="competencia_2" name="competencia" value="2">
+                        <label for="competencia_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="competencia_3" name="competencia" value="3">
+                        <label for="competencia_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="competencia_4" name="competencia" value="4">
+                        <label for="competencia_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="competencia_5" name="competencia" value="5">
+                        <label for="competencia_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5. Posicionamiento de la institución de egreso</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="posicionamiento_1" name="posicionamiento" value="1">
+                        <label for="posicionamiento_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="posicionamiento_2" name="posicionamiento" value="2">
+                        <label for="posicionamiento_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="posicionamiento_3" name="posicionamiento" value="3">
+                        <label for="posicionamiento_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="posicionamiento_4" name="posicionamiento" value="4">
+                        <label for="posicionamiento_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="posicionamiento_5" name="posicionamiento" value="5">
+                        <label for="posicionamiento_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6. Conocimiento de idiomas extranjeros</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="idiomas_1" name="idiomas" value="1">
+                        <label for="idiomas_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="idiomas_2" name="idiomas" value="2">
+                        <label for="idiomas_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="idiomas_3" name="idiomas" value="3">
+                        <label for="idiomas_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="idiomas_4" name="idiomas" value="4">
+                        <label for="idiomas_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="idiomas_5" name="idiomas" value="5">
+                        <label for="idiomas_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>7. Recomendaciones/referencias</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="recomendaciones_1" name="recomendaciones" value="1">
+                        <label for="recomendaciones_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="recomendaciones_2" name="recomendaciones" value="2">
+                        <label for="recomendaciones_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="recomendaciones_3" name="recomendaciones" value="3">
+                        <label for="recomendaciones_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="recomendaciones_4" name="recomendaciones" value="4">
+                        <label for="recomendaciones_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="recomendaciones_5" name="recomendaciones" value="5">
+                        <label for="recomendaciones_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>8. Personalidad/actitudes</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="personalidad_1" name="personalidad" value="1">
+                        <label for="personalidad_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="personalidad_2" name="personalidad" value="2">
+                        <label for="personalidad_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="personalidad_3" name="personalidad" value="3">
+                        <label for="personalidad_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="personalidad_4" name="personalidad" value="4">
+                        <label for="personalidad_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="personalidad_5" name="personalidad" value="5">
+                        <label for="personalidad_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>9. Capacidad de liderazgo</td>
+                  <td>
+                    <div class="radio-buttons-row">
+                      <div class="radio-button-cell">
+                        <input type="radio" id="liderazgo_1" name="liderazgo" value="1">
+                        <label for="liderazgo_1">1</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="liderazgo_2" name="liderazgo" value="2">
+                        <label for="liderazgo_2">2</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="liderazgo_3" name="liderazgo" value="3">
+                        <label for="liderazgo_3">3</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="liderazgo_4" name="liderazgo" value="4">
+                        <label for="liderazgo_4">4</label>
+                      </div>
+                      <div class="radio-button-cell">
+                        <input type="radio" id="liderazgo_5" name="liderazgo" value="5">
+                        <label for="liderazgo_5">5</label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Los aspectos personalizados se insertarán aquí dinámicamente -->
+              </tbody>
+            </table>
+            
+            <!-- Sección para añadir aspectos personalizados -->
+            <div class="custom-aspectos-section">
+              <div class="instruction-box">
+                <div class="instruction-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="instruction-text">
+                  <h4>¿No encuentra todos los aspectos que valora su empresa?</h4>
+                  <p>Puede añadir sus propios aspectos personalizados usando el campo de abajo. Los aspectos añadidos aparecerán en la tabla y podrá valorarlos de la misma manera (1-5).</p>
+                </div>
+              </div>
+              <div class="add-aspecto-container">
+                <input type="text" id="nuevo-aspecto" placeholder="Ingrese un nuevo aspecto valorado por la empresa..." class="custom-input">
+                <button type="button" id="agregar-aspecto-btn" class="add-button">Agregar aspecto</button>
+              </div>
+              <div id="aspecto-feedback" class="feedback-message" style="display: none;"></div>
+            </div>
+            
+            <div class="validation-indicator" id="aspectos-validation">Por favor, valore al menos los primeros 9 aspectos</div>
+          </div>
+    </form>
+             <!-- controles del wizard -->
+             <div class="wizard-nav">
+              <button type="button" id="returnBtn" class="btn-prev">
+                <span class="arrow-container">
+                  <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                    <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                      <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                      <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                    </g>
+                  </svg>
+                </span>
+                <span class="text">Atrás</span>
+              </button>
+      
+              <button type="button" id="nextBtn" class="btn-next">
+                <span class="text">Siguiente</span>
+                <span class="arrow-container">
+                  <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                    <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                      <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                      <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                    </g>
+                  </svg>
+                </span>
+              </button>
+            </div>
+      
+            <div class="progress-container">
+              <div class="progress-label">Módulo 6 de 9</div>
+              <progress id="progress" max="8" value="2"></progress>
+            </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-init.js"></script>
+  <script>window.initFirebase && window.initFirebase();</script>
+  <script>
+    // Proteger la ruta: verificar si hay usuario autenticado
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "auth.html";
+      }
+    });
+  </script>
+  
+  <!-- JavaScript específico para Módulo 6 -->
+  <script src="js/models/DesempenoProfesional.js"></script>
+  <script src="js/modulos/modulo6/modulo6-aspectos.js"></script>
+  <script src="js/modulos/modulo6/modulo6.js"></script>
+  <script src="js/user-profile.js"></script>
+  <script src="js/navbar-loader.js"></script>
+  
+  <script>
+    // Ocultar preloader cuando la página cargue
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('preloader')) {
+        document.getElementById('preloader').style.display = 'none';
+      }
+      
+      // Configurar el botón de retorno
+      if (document.getElementById('returnBtn')) {
+        document.getElementById('returnBtn').addEventListener('click', () => {
+          window.location.href = 'modulo5.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

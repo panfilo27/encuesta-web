@@ -1,0 +1,585 @@
+/* Módulo 4 - Estilos específicos */
+
+/* Tarjetas para cada sección */
+.empleo-card {
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.empleo-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empleo-card h3 {
+  color: #2c3e50;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f1f1f1;
+  padding-bottom: 10px;
+}
+
+/* Opciones en grid */
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Estilo específico para secciones de selección múltiple */
+.options-grid.multi-select {
+  border: 1px dashed #91d5ff;
+  background-color: #f0f9ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Instrucción de selección múltiple */
+.selection-instruction {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #1890ff;
+  background-color: #e6f7ff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.selection-instruction i {
+  margin-right: 8px;
+}
+
+.option-item {
+  flex-basis: calc(50% - 10px);
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.option-item input[type="radio"],
+.option-item input[type="checkbox"] {
+  display: none;
+}
+
+.option-label {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.option-item input[type="radio"]:checked + .option-label {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* Estilo especial para checkboxes (selección múltiple) */
+.option-item input[type="checkbox"]:checked + .option-label {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  color: #1890ff;
+  font-weight: 500;
+  position: relative;
+}
+
+.multi-select .option-item input[type="checkbox"]:checked + .option-label::before {
+  content: '✓'; /* Checkmark */
+  position: absolute;
+  right: 10px;
+  color: #1890ff;
+  font-weight: bold;
+}
+
+/* Campos de "otro" */
+.other-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.other-input label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.other-input input[type="text"] {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Botón de añadir */
+.btn-add {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-add:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-add i {
+  margin-right: 5px;
+}
+
+/* Contenedor para añadir requisitos */
+.add-requisito-container {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #f5f9ff;
+  border: 1px dashed #91d5ff;
+  border-radius: 8px;
+}
+
+.add-requisito-container .note {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #1890ff;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-with-button input[type="text"] {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.input-with-button input[type="text"]:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  outline: none;
+}
+
+.btn-add {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #40a9ff;
+  transform: translateY(-2px);
+}
+
+.btn-add:active {
+  background-color: #096dd9;
+  transform: translateY(0);
+}
+
+/* Asegurarnos de que la cuadrícula muestre los elementos correctamente */
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Estilo general para los items de opciones (predefinidos y personalizados) */
+.option-item {
+  min-width: 200px;
+  margin-bottom: 5px;
+  position: relative;
+  flex-grow: 1;
+}
+
+/* Ocultar los checkboxes reales */
+.option-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Estilo para las etiquetas que funcionan como botones */
+.option-item .option-label {
+  display: block;
+  padding: 15px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: normal;
+}
+
+/* Estilo cuando está seleccionado */
+.option-item input[type="checkbox"]:checked + .option-label {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* Añadir un checkmark cuando está seleccionado */
+.option-item input[type="checkbox"]:checked + .option-label::after {
+  content: '\2713';
+  position: absolute;
+  right: 15px;
+  color: #1890ff;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para el mensaje de feedback */
+.add-success-feedback {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  border-radius: 4px;
+  color: #52c41a;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+  transition: opacity 0.5s ease;
+}
+
+/* Estilos para el campo de texto con error */
+.input-with-button input[type="text"].error {
+  border-color: #ff4d4f;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+/* Estilos para los encabezados de sección */
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.module-title {
+  color: #2c3e50;
+  font-size: 24px;
+  margin: 0;
+}
+
+.progress-counter {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #2c3e50;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Estilos modernos para los sliders de porcentaje - Mantener intactos */
+.slider-container {
+  margin-bottom: 25px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.slider-container label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #4a5568;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-value {
+  display: inline-block;
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  margin-left: 5px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #90cdf4;
+}
+
+/* Estilo especial para el valor 100% */
+.slider-value.max-value {
+  background-color: #90cdf4;
+  color: white;
+  border-color: #3182ce;
+}
+
+/* Clase especial para el slider cuando está al 100% */
+input[type="range"].at-max-value::-webkit-slider-thumb {
+  transform: translateX(11px); /* Mover completamente a la derecha */
+  margin-left: 0; /* Eliminar cualquier margen adicional */
+}
+
+/* Firefox - ajuste equivalente */
+input[type="range"].at-max-value::-moz-range-thumb {
+  transform: translateX(11px);
+  margin-left: 0;
+}
+
+/* Estilizar el input de rango */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: calc(100% - 22px); /* Ajuste para alinear con el thumb */
+  height: 8px;
+  border-radius: 5px;  
+  background: #e2e8f0;
+  outline: none;
+  margin: 10px 11px; /* Margen ajustado para alinear inicio y fin */
+  position: relative;
+}
+
+/* Chrome, Safari, Opera */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #90cdf4;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
+  transition: all 0.2s ease-in-out;
+  margin-top: 0px; /* Ajuste para centrar verticalmente */
+  position: relative;
+  z-index: 2; /* Asegurar que esté por encima de la barra de progreso */
+  transform: translateX(-11px); /* Ajustar posición hacia la izquierda */
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #3182ce;
+  box-shadow: 0 0 0 6px rgba(66, 153, 225, 0.5);
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #4299e1;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #3182ce;
+  box-shadow: 0 0 0 6px rgba(66, 153, 225, 0.5);
+}
+
+/* Progress bar effect - simplificado para mejor compatibilidad */
+.slider-container {
+  --slider-value: 0%;
+  position: relative;
+}
+
+.slider-progress {
+  position: absolute;
+  left: 11px; /* Alinear con el margen ajustado */
+  bottom: 19px;
+  height: 8px;
+  max-width: calc(100% - 33px); /* Ajustado para no sobrepasar al círculo */
+  border-radius: 5px 0 0 5px; /* Redondear solo el lado izquierdo */
+  background-color: #4299e1;
+  z-index: 1; /* Por encima del background pero debajo del thumb */
+  pointer-events: none;
+  width: 0%; /* Será actualizado con JavaScript */
+}
+
+/* Mejorar el diseño de las tarjetas de empleo */
+.empleo-card {
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.empleo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.empleo-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #2d3748;
+  font-size: 18px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+/* Estilo para opciones seleccionadas */
+.option-item input[type="radio"]:checked + .option-label,
+.option-item input[type="checkbox"]:checked + .option-label {
+  background-color: #ebf8ff;
+  color: #3182ce;
+  border-color: #bee3f8;
+  font-weight: 500;
+}
+
+/* Animación para cambiar el color del valor cuando cambia */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.slider-value.changed {
+  animation: pulse 0.5s ease;
+  background-color: #ebf8ff; /* Fondo más claro */
+  color: #2b6cb0; /* Texto más oscuro para mejor contraste */
+  border-color: #90cdf4; /* Borde que resalta */
+}
+
+/* Estilo para el contador de preguntas */
+/* Mantenemos el estilo del contador uniforme con los demás módulos */
+.module-header .progress-counter {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #2c3e50;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: inline-block;
+}
+
+/* Mejorar los estilos de validación */
+.validation-indicator {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  font-size: 14px;
+  border-left: 3px solid #e53e3e;
+  display: none;
+}
+
+.validation-indicator.valid {
+  background-color: #f0fff4;
+  color: #38a169;
+  border-left: 3px solid #38a169;
+}
+
+/* Caja de instrucciones */
+.instruction-box {
+  display: flex;
+  background-color: #e8f4fd;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.instruction-icon {
+  font-size: 24px;
+  color: #3498db;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.instruction-text h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.instruction-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #34495e;
+  line-height: 1.5;
+}
+
+/* Mensajes de retroalimentación */
+.feedback-message {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.feedback-message.error {
+  background-color: #fde8e8;
+  color: #e74c3c;
+  border-left: 3px solid #e74c3c;
+}
+
+.feedback-message.success {
+  background-color: #eafbf3;
+  color: #27ae60;
+  border-left: 3px solid #27ae60;
+}

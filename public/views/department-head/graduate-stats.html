@@ -1,0 +1,78 @@
+<!-- Sección de estadísticas de egresados para el panel de jefe de departamento -->
+<div class="graduate-stats-view">
+  <div class="stats-header">
+    <h2>Estadísticas de Egresados</h2>
+    <p>Datos estadísticos de los egresados de la carrera asignada</p>
+  </div>
+
+  <div class="charts-container">
+    <!-- Gráfica 1: Situación Laboral -->
+    <div class="admin-card chart-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Situación Laboral de Egresados</h3>
+      </div>
+      <div class="admin-card-body">
+        <canvas id="empleoChart" width="400" height="300"></canvas>
+        <div class="chart-loader" id="empleoChartLoader">
+          <div class="spinner"></div>
+        </div>
+        <div class="chart-no-data" id="empleoChartNoData" style="display: none;">
+          <p>No hay datos suficientes para generar esta gráfica.</p>
+        </div>
+      </div>
+      <div class="admin-card-footer">
+        <p class="chart-description">Distribución de egresados según su situación laboral actual.</p>
+      </div>
+    </div>
+
+    <!-- Gráfica 2: Estado de Titulación -->
+    <div class="admin-card chart-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Estado de Titulación</h3>
+      </div>
+      <div class="admin-card-body">
+        <canvas id="titulacionChart" width="400" height="300"></canvas>
+        <div class="chart-loader" id="titulacionChartLoader">
+          <div class="spinner"></div>
+        </div>
+        <div class="chart-no-data" id="titulacionChartNoData" style="display: none;">
+          <p>No hay datos suficientes para generar esta gráfica.</p>
+        </div>
+      </div>
+      <div class="admin-card-footer">
+        <p class="chart-description">Porcentaje de egresados que han completado su proceso de titulación.</p>
+      </div>
+    </div>
+
+    <!-- Gráfica 3: Distribución por Sexo -->
+    <div class="admin-card chart-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Distribución por Sexo</h3>
+      </div>
+      <div class="admin-card-body">
+        <canvas id="sexoChart" width="400" height="300"></canvas>
+        <div class="chart-loader" id="sexoChartLoader">
+          <div class="spinner"></div>
+        </div>
+        <div class="chart-no-data" id="sexoChartNoData" style="display: none;">
+          <p>No hay datos suficientes para generar esta gráfica.</p>
+        </div>
+      </div>
+      <div class="admin-card-footer">
+        <p class="chart-description">Distribución de egresados según su sexo registrado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-footer">
+    <p class="stats-note">Nota: Estas estadísticas se generan a partir de las encuestas completadas por los egresados.</p>
+    <div class="stats-actions">
+      <button id="refreshStatsBtn" class="admin-btn admin-btn-secondary">
+        <i class="fas fa-sync-alt"></i> Actualizar datos
+      </button>
+      <button id="exportStatsBtn" class="admin-btn admin-btn-primary">
+        <i class="fas fa-file-export"></i> Exportar estadísticas
+      </button>
+    </div>
+  </div>
+</div>

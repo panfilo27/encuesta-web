@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 5 - Encuesta de Seguimiento</title>
+  
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="css/main.css" /><!-- Agregado para consistencia con el fondo -->
+  <link rel="stylesheet" href="css/animated-forms.css" /><!-- Agregado para consistencia con el módulo 3 -->
+  <link rel="stylesheet" href="css/encuesta.css" />
+  <link rel="stylesheet" href="css/hourglass-loader.css" />
+  <link rel="stylesheet" href="css/user-profile.css" />
+  <link rel="stylesheet" href="css/modern-buttons.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/modulo5.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    .option-item {
+      flex-basis: calc(50% - 20px);
+      margin-bottom: 15px;
+    }
+    
+    .option-label {
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background-color: #f8f9fa;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .option-item input[type="radio"]:checked + .option-label,
+    .option-item input[type="checkbox"]:checked + .option-label {
+      background-color: #e6f7ff;
+      border-color: #91d5ff;
+      color: #1890ff;
+    }
+    
+    .options-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+      justify-content: space-between;
+    }
+    
+    .empresa-card {
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      background-color: white;
+    }
+    
+    .empresa-card h3 {
+      color: #2c3e50;
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #f1f1f1;
+      padding-bottom: 10px;
+    }
+    
+    .relation-options {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .relation-option {
+      width: 15%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .relation-option input[type="radio"] {
+      display: none;
+    }
+    
+    .relation-option label {
+      display: block;
+      padding: 10px 5px;
+      background-color: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .relation-option input[type="radio"]:checked + label {
+      background-color: #e6f7ff;
+      border-color: #91d5ff;
+      color: #1890ff;
+    }
+    
+    .form-row {
+      margin-bottom: 15px;
+    }
+    
+    .form-row label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .form-row input, 
+    .form-row select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .module-title {
+      font-size: 24px;
+    }
+    
+    .progress-counter {
+      background: #f8f9fa;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-size: 14px;
+      color: #2c3e50;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- Placeholder para cargar el navbar dinámicamente -->
+  <div id="navbar-placeholder"></div>
+  <!-- Preloader -->
+  <div id="preloader" class="hourglass-loader">
+    <div class="inner"></div>
+  </div>
+
+  <div class="overlay"></div>
+  <div class="registro-form-section">
+
+    <form id="registro-form" class="registro-form">
+      <div id="wizard">
+        <!-- Datos de la empresa -->
+        <div class="wizard-step" data-step="0">
+          <!-- Encabezado del módulo -->
+          <div class="module-header" style="margin-top: 20px;">
+            <h2 class="module-title">Sección 5 - Datos de la Empresa</h2>
+            <div class="progress-counter">
+              <span id="questions-completed">0/4</span> preguntas respondidas
+            </div>
+          </div>
+
+          <!-- Relación del trabajo con área de formación -->
+          <div class="empresa-card" id="relacion-card">
+            <h3>Relación del trabajo con su área de formación</h3>
+            <div class="relation-options">
+              <div class="relation-option">
+                <input type="radio" id="relacion_0" name="relacion_trabajo" value="0">
+                <label for="relacion_0">0%</label>
+              </div>
+              <div class="relation-option">
+                <input type="radio" id="relacion_20" name="relacion_trabajo" value="20">
+                <label for="relacion_20">20%</label>
+              </div>
+              <div class="relation-option">
+                <input type="radio" id="relacion_40" name="relacion_trabajo" value="40">
+                <label for="relacion_40">40%</label>
+              </div>
+              <div class="relation-option">
+                <input type="radio" id="relacion_60" name="relacion_trabajo" value="60">
+                <label for="relacion_60">60%</label>
+              </div>
+              <div class="relation-option">
+                <input type="radio" id="relacion_80" name="relacion_trabajo" value="80">
+                <label for="relacion_80">80%</label>
+              </div>
+              <div class="relation-option">
+                <input type="radio" id="relacion_100" name="relacion_trabajo" value="100">
+                <label for="relacion_100">100%</label>
+              </div>
+            </div>
+            <div class="validation-indicator" id="relacion-validation">Por favor, seleccione una opción</div>
+          </div>
+
+          <!-- Datos de la empresa u organismo -->
+          <div class="empresa-card" id="datos-empresa-card">
+            <h3>Datos de la empresa u organismo</h3>
+            
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="organismo_publico" name="tipo_organismo" value="Público">
+                <label for="organismo_publico" class="option-label">Público</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="organismo_privado" name="tipo_organismo" value="Privado">
+                <label for="organismo_privado" class="option-label">Privado</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="organismo_social" name="tipo_organismo" value="Social">
+                <label for="organismo_social" class="option-label">Social</label>
+              </div>
+              <div class="option-item" style="visibility: hidden;"></div> <!-- Elemento invisible para mantener la alineación -->  
+            </div>
+            
+            <div class="form-row">
+              <label for="giro">Giro o actividad principal:</label>
+              <input type="text" id="giro" name="giro" placeholder="Describe la actividad principal de la empresa">
+            </div>
+            
+            <div class="form-row">
+              <label for="razon_social">Razón social:</label>
+              <input type="text" id="razon_social" name="razon_social" placeholder="Nombre legal de la empresa">
+            </div>
+            
+            <div class="form-row">
+              <label for="domicilio">Domicilio:</label>
+              <input type="text" id="domicilio" name="domicilio" placeholder="Calle, número, colonia">
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-row">
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad">
+              </div>
+              <div class="form-row">
+                <label for="municipio">Municipio:</label>
+                <input type="text" id="municipio" name="municipio" placeholder="Municipio">
+              </div>
+              <div class="form-row">
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" placeholder="Estado">
+              </div>
+              <div class="form-row">
+                <label for="telefono">Teléfonos:</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Teléfono">
+              </div>
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-row">
+                <label for="extension">Tel. y Ext.:</label>
+                <input type="text" id="extension" name="extension" placeholder="Extensión">
+              </div>
+              <div class="form-row">
+                <label for="email_empresa">E-mail:</label>
+                <input type="email" id="email_empresa" name="email_empresa" placeholder="Correo electrónico">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <label for="web">Página Web:</label>
+              <input type="url" id="web" name="web" placeholder="URL de la página web">
+            </div>
+            
+            <div class="form-row">
+              <label for="jefe">Nombre y puesto del jefe inmediato:</label>
+              <input type="text" id="jefe" name="jefe" placeholder="Nombre y puesto">
+            </div>
+            
+            <div class="validation-indicator" id="datos-empresa-validation">Por favor, complete los datos requeridos</div>
+          </div>
+
+          <!-- Sector económico -->
+          <div class="empresa-card" id="sector-card">
+            <h3>Sector económico</h3>
+            
+            <h4>Sector Primario</h4>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="sector_agroindustria" name="sector_economico" value="Agroindustria">
+                <label for="sector_agroindustria" class="option-label">Agroindustria</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_pesquero" name="sector_economico" value="Pesquero">
+                <label for="sector_pesquero" class="option-label">Pesquero</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_minero" name="sector_economico" value="Minero">
+                <label for="sector_minero" class="option-label">Minero</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_primario_otros" name="sector_economico" value="Primario - Otros">
+                <label for="sector_primario_otros" class="option-label">Otros</label>
+              </div>
+            </div>
+            
+            <h4>Sector Secundario</h4>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="sector_industrial" name="sector_economico" value="Industrial">
+                <label for="sector_industrial" class="option-label">Industrial</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_construccion" name="sector_economico" value="Construcción">
+                <label for="sector_construccion" class="option-label">Construcción</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_petrolero" name="sector_economico" value="Petrolero">
+                <label for="sector_petrolero" class="option-label">Petrolero</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_secundario_otros" name="sector_economico" value="Secundario - Otros">
+                <label for="sector_secundario_otros" class="option-label">Otros</label>
+              </div>
+            </div>
+            
+            <h4>Sector Terciario</h4>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="sector_educativo" name="sector_economico" value="Educativo">
+                <label for="sector_educativo" class="option-label">Educativo</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_turismo" name="sector_economico" value="Turismo">
+                <label for="sector_turismo" class="option-label">Turismo</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_comercio" name="sector_economico" value="Comercio">
+                <label for="sector_comercio" class="option-label">Comercio</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_financiero" name="sector_economico" value="Servicios Financieros">
+                <label for="sector_financiero" class="option-label">Servicios Financieros</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="sector_terciario_otros" name="sector_economico" value="Terciario - Otros">
+                <label for="sector_terciario_otros" class="option-label">Otros</label>
+              </div>
+              <div class="option-item" style="visibility: hidden;"></div> <!-- Elemento invisible para mantener la alineación -->
+            </div>
+            
+            <div class="validation-indicator" id="sector-validation">Por favor, seleccione un sector</div>
+          </div>
+
+          <!-- Tamaño de la empresa -->
+          <div class="empresa-card" id="tamano-card">
+            <h3>Tamaño de la empresa/organización</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="tamano_micro" name="tamano_empresa" value="Microempresa (1-30)">
+                <label for="tamano_micro" class="option-label">Microempresa (1-30)</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tamano_pequena" name="tamano_empresa" value="Pequeña (31-100)">
+                <label for="tamano_pequena" class="option-label">Pequeña (31-100)</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tamano_mediana" name="tamano_empresa" value="Mediana (101-500)">
+                <label for="tamano_mediana" class="option-label">Mediana (101-500)</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tamano_grande" name="tamano_empresa" value="Grande (más de 500)">
+                <label for="tamano_grande" class="option-label">Grande (más de 500)</label>
+              </div>
+            </div>
+            <div class="validation-indicator" id="tamano-validation">Por favor, seleccione una opción</div>
+          </div>
+
+          <!-- controles del wizard -->
+          <div class="wizard-nav">
+            <button type="button" id="prevBtn" class="btn-prev">
+              <span class="arrow-container">
+                <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                  <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                  </g>
+                </svg>
+              </span>
+              <span class="text">Atrás</span>
+            </button>
+
+            <button type="button" id="nextBtn" class="btn-next">
+              <span class="text">Siguiente</span>
+              <span class="arrow-container">
+                <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                  <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                  </g>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="js/firebase/firebase-init.js"></script>
+  <script src="js/models/Usuario.js"></script>
+  <script src="js/models/UbicacionLaboral.js"></script>
+  <script src="js/models/Empleo.js"></script>
+  <script src="js/models/EmpresaData.js"></script>
+  <script src="js/auth/encuesta.js"></script>
+  <script src="js/modulos/modulo5/modulo5.js"></script>
+  <script src="js/user-profile.js"></script>
+  <!-- Script para cargar el navbar dinámicamente -->
+  <script src="js/navbar-loader.js"></script>
+</body>
+</html>

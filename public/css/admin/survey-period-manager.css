@@ -1,0 +1,459 @@
+/* 
+ * survey-period-manager.css
+ * Estilos para el gestor de periodos de encuestas 
+ */
+
+/* Reset para asegurar que todos los elementos usen border-box */
+.admin-modal *,
+.admin-modal *::before,
+.admin-modal *::after {
+  box-sizing: border-box;
+}
+
+/* Panel de estado de encuesta */
+.survey-status-panel {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.status-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+}
+
+.status-body {
+  padding: 20px;
+}
+
+/* Nuevo layout para el panel de estado */
+.status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #673ab7;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.status-details {
+  flex: 1;
+}
+
+.status-label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 3px;
+}
+
+.status-value {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Etiquetas de estado */
+.survey-status {
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.status-open {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.status-closed {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #d32f2f;
+}
+
+.status-pending {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #f57c00;
+}
+
+/* Botón para gestionar periodos */
+.admin-btn-action {
+  background-color: #673ab7;
+  color: white;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.admin-btn-action:hover {
+  background-color: #5e35b1;
+}
+
+.admin-btn-action:active {
+  transform: scale(0.98);
+}
+
+/* Modal de periodos */
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+
+.admin-modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 480px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: modal-fade 0.3s;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.admin-modal-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.admin-modal-header h2 i {
+  color: #673ab7;
+  font-size: 1.4rem;
+}
+
+.admin-modal-close {
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #777;
+  transition: all 0.2s;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.admin-modal-close:hover {
+  color: #333;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.admin-modal-body {
+  padding: 25px 30px 30px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Estilos del formulario */
+#period-form {
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+/* Contenedor de campos de fecha */
+.date-input-container, .input-container {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+/* Mejorar entradas de tipo fecha */
+.form-group input[type="date"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: white;
+  appearance: none; /* Eliminar apariencia nativa */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Quitar ícono de calendario nativo */
+  background-image: none;
+  box-sizing: border-box;
+}
+
+/* Quitando la apariencia nativa en diferentes navegadores */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+/* Estilos para el ícono personalizado de calendario */
+.date-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #673ab7;
+  pointer-events: none;
+  font-size: 1.1rem;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #673ab7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(103, 58, 183, 0.1);
+}
+
+.form-group input:invalid {
+  border-color: #e57373;
+  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.1);
+}
+
+/* Icono personalizado para calendario */
+.date-icon {
+  position: absolute;
+  right: 12px;
+  top: 41px;
+  color: #673ab7;
+  pointer-events: none;
+}
+
+.form-help {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+.form-message {
+  margin: 20px 0 10px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.form-message:before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.form-message.info {
+  background-color: #e3f2fd;
+  color: #0277bd;
+}
+
+.form-message.info:before {
+  content: "\f05a";
+  color: #0277bd;
+}
+
+.form-message.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.form-message.success:before {
+  content: "\f058";
+  color: #2e7d32;
+}
+
+.form-message.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.form-message.error:before {
+  content: "\f057";
+  color: #c62828;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* Botones */
+button.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+button.admin-btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10,10);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.8s;
+}
+
+button.admin-btn:active::after {
+  transform: scale(0,0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+button.admin-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+button.admin-btn-secondary {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+button.admin-btn-secondary:hover {
+  background-color: #f1f3f5;
+  border-color: #d5d5d5;
+}
+
+button.admin-btn-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+button.admin-btn-primary:hover {
+  background-color: #43a047;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-modal-content {
+    max-width: 90%;
+    margin: 0 20px;
+  }
+  
+  .status-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .status-label {
+    margin-bottom: 5px;
+  }
+}
+
+/* Estilos para mostrar una animación cuando cambia el estado */
+.status-change {
+  animation: status-pulse 1s;
+}
+
+@keyframes status-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

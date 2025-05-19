@@ -1,0 +1,336 @@
+/* Estilos modernos para botones y elementos de navegación */
+
+/* Botón de SIGUIENTE con animación de flechas */
+.btn-next {
+  display: flex;
+  align-items: center;
+  padding: 10px 25px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  background: #3a7bd5;
+  transition: 0.5s;
+  box-shadow: 5px 5px 0 #1e3c68;
+  transform: skewX(-10deg);
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.btn-next:focus {
+  outline: none;
+}
+
+.btn-next:hover {
+  transition: 0.5s;
+  box-shadow: 8px 8px 0 #122443;
+}
+
+.btn-next .arrow-container {
+  transition: 0.5s;
+  margin-right: 0px;
+  width: 20px;
+  margin-left: 15px;
+  position: relative;
+  top: 0;
+}
+
+.btn-next:hover .arrow-container {
+  transition: 0.5s;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.btn-next .text {
+  transform: skewX(10deg);
+}
+
+.arrow-1, .arrow-2, .arrow-3 {
+  transition: 0.4s;
+  transform: translateX(-60%);
+  fill: white;
+}
+
+.arrow-2 {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.btn-next:hover .arrow-1 {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.btn-next:hover .arrow-2 {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+.btn-next:hover .arrow-3 {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+  50% {
+    fill: #c7e0ff;
+  }
+  100% {
+    fill: white;
+  }
+}
+
+/* Botón de ATRÁS con animación de flechas invertidas */
+.btn-prev {
+  display: flex;
+  align-items: center;
+  padding: 10px 25px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  background: #7986cb;
+  transition: 0.5s;
+  box-shadow: 5px 5px 0 #303f9f;
+  transform: skewX(-10deg);
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.btn-prev:focus {
+  outline: none;
+}
+
+.btn-prev:hover {
+  transition: 0.5s;
+  box-shadow: 8px 8px 0 #1a237e;
+}
+
+.btn-prev .arrow-container {
+  transition: 0.5s;
+  margin-left: 0px;
+  width: 20px;
+  margin-right: 15px;
+  position: relative;
+  top: 0;
+  transform: rotate(180deg);
+}
+
+.btn-prev:hover .arrow-container {
+  transition: 0.5s;
+  margin-right: 20px;
+  margin-left: 5px;
+}
+
+.btn-prev .text {
+  transform: skewX(10deg);
+}
+
+/* Botón de Guardar/Enviar formulario */
+.btn-submit {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 4px 4px 0 #2E7D32;
+  transform: skewX(-10deg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px) skewX(-10deg);
+  box-shadow: 6px 6px 0 #2E7D32;
+}
+
+.btn-submit:active {
+  transform: translateY(2px) skewX(-10deg);
+  box-shadow: 2px 2px 0 #2E7D32;
+}
+
+.btn-submit .text {
+  transform: skewX(10deg);
+  display: inline-block;
+}
+
+/* Botones de Login/Registro mejorados */
+.btn-auth {
+  background-color: white;
+  color: #3a7bd5;
+  border-radius: 10em;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 1em 2em;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #3a7bd5;
+  box-shadow: 0 0 0 0 #3a7bd5;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-auth:hover {
+  transform: translateY(-4px) translateX(-2px);
+  box-shadow: 2px 5px 0 0 #3a7bd5;
+}
+
+.btn-auth:active {
+  transform: translateY(2px) translateX(1px);
+  box-shadow: 0 0 0 0 #3a7bd5;
+}
+
+/* Mejora de barra de progreso */
+.progress-container {
+  margin: 25px 0;
+}
+
+.progress-label {
+  display: block;
+  text-align: right;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+progress {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(to right, #3a7bd5, #00d2ff);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+progress::-moz-progress-bar {
+  background: linear-gradient(to right, #3a7bd5, #00d2ff);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+/* Estilos mejorados para campos de fecha */
+input[type="month"],
+input[type="date"] {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%233a7bd5' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+}
+
+input[type="month"]:focus,
+input[type="date"]:focus {
+  border-color: #3a7bd5;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
+}
+
+/* Mejoras para la sección de situación actual */
+.wizard-step {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.wizard-step h2 {
+  color: #3a7bd5;
+  margin-bottom: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  align-items: center;
+}
+
+/* Estilos para radio buttons */
+.input-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.radio-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-button .radio-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.radio-button:hover input ~ .radio-circle {
+  background-color: #ccc;
+}
+
+.radio-button input:checked ~ .radio-circle {
+  background-color: #3a7bd5;
+}
+
+.radio-button .radio-circle:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-button input:checked ~ .radio-circle:after {
+  display: block;
+}
+
+.radio-button .radio-circle:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sección 4 - Empleo: Datos Generales</title>
+
+  <!--  hojas de estilo  -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animated-forms.css" />
+  <link rel="stylesheet" href="css/encuesta.css" />
+  <link rel="stylesheet" href="css/hourglass-loader.css" />
+  <link rel="stylesheet" href="css/user-profile.css" />
+  <link rel="stylesheet" href="css/modern-buttons.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/modulo4.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Los estilos específicos ahora se encuentran en el archivo css/modulo4.css -->
+</head>
+<body>
+  <!-- Placeholder para cargar el navbar dinámicamente -->
+  <div id="navbar-placeholder"></div>
+  
+  <!-- Los estilos del encabezado del módulo ahora están en css/modulo4.css -->
+
+  <!-- Preloader -->
+  <div id="preloader" class="hourglass-loader">
+    <div class="inner"></div>
+  </div>
+
+  <div class="overlay"></div>
+  <div class="registro-form-section">
+
+    <form id="registro-form" class="registro-form">
+      <div id="wizard">
+        <!-- Datos de empleo -->
+        <div class="wizard-step" data-step="0">
+          <!-- Encabezado del módulo -->
+          <div class="module-header">
+            <h2 class="module-title">Sección 4 - Empleo: Datos Generales</h2>
+            <div class="progress-counter">
+              <span id="questions-completed">0/10</span> preguntas respondidas
+            </div>
+          </div>
+
+          <!-- III.2 Tiempo transcurrido para obtener el primer empleo -->
+          <div class="empleo-card" id="tiempo-empleo-card">
+            <h3>Tiempo transcurrido para obtener el primer empleo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="tiempo_antes_egresar" name="tiempo_primer_empleo" value="Antes de egresar">
+                <label for="tiempo_antes_egresar" class="option-label">Antes de egresar</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tiempo_menos_seis" name="tiempo_primer_empleo" value="Menos de seis meses">
+                <label for="tiempo_menos_seis" class="option-label">Menos de seis meses</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tiempo_seis_un_anio" name="tiempo_primer_empleo" value="Entre seis meses y un año">
+                <label for="tiempo_seis_un_anio" class="option-label">Entre seis meses y un año</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="tiempo_mas_anio" name="tiempo_primer_empleo" value="Más de un año">
+                <label for="tiempo_mas_anio" class="option-label">Más de un año</label>
+              </div>
+            </div>
+            <div class="validation-indicator" id="tiempo-empleo-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.3 Medio para obtener el empleo -->
+          <div class="empleo-card" id="medio-empleo-card">
+            <h3>Medio para obtener el empleo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="medio_bolsa" name="medio_obtener_empleo" value="Bolsa de trabajo del plantel">
+                <label for="medio_bolsa" class="option-label">Bolsa de trabajo del plantel</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="medio_contactos" name="medio_obtener_empleo" value="Contactos personales">
+                <label for="medio_contactos" class="option-label">Contactos personales</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="medio_residencia" name="medio_obtener_empleo" value="Residencia Profesional">
+                <label for="medio_residencia" class="option-label">Residencia Profesional</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="medio_medios" name="medio_obtener_empleo" value="Medios masivos de comunicación">
+                <label for="medio_medios" class="option-label">Medios masivos de comunicación</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="medio_otro" name="medio_obtener_empleo" value="Otros">
+                <label for="medio_otro" class="option-label">Otros</label>
+              </div>
+            </div>
+            <div class="other-input" id="medio-otro-container" style="display: none;">
+              <label for="medio_otro_input">Especificar:</label>
+              <input type="text" id="medio_otro_input" name="medio_otro" placeholder="Ingresa otro medio...">
+            </div>
+            <div class="validation-indicator" id="medio-empleo-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.4 Requisitos de contratación -->
+          <div class="empleo-card" id="requisitos-card">
+            <h3>Requisitos de contratación</h3>
+            <p class="selection-instruction"><i class="fas fa-info-circle"></i> Puedes seleccionar múltiples opciones en esta sección</p>
+            <div class="options-grid multi-select">
+              <div class="option-item">
+                <input type="checkbox" id="requisito_competencias" name="requisitos_contratacion" value="Competencias laborales">
+                <label for="requisito_competencias" class="option-label">Competencias laborales</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="requisito_titulo" name="requisitos_contratacion" value="Título Profesional">
+                <label for="requisito_titulo" class="option-label">Título Profesional</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="requisito_examen" name="requisitos_contratacion" value="Examen de selección">
+                <label for="requisito_examen" class="option-label">Examen de selección</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="requisito_idioma" name="requisitos_contratacion" value="Idioma Extranjero">
+                <label for="requisito_idioma" class="option-label">Idioma Extranjero</label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" id="requisito_actitudes" name="requisitos_contratacion" value="Actitudes y habilidades socio-comunicativas">
+                <label for="requisito_actitudes" class="option-label">Actitudes y habilidades socio-comunicativas</label>
+              </div>
+              <!-- Opción "Ninguno" eliminada ya que simplemente no seleccionar nada es equivalente -->
+            </div>
+            
+            <!-- Campo para añadir nuevos requisitos -->
+            <div class="add-requisito-container">
+                <p class="note"><i class="fas fa-info-circle"></i> Puedes añadir tus propios requisitos personalizados</p>
+              <div class="input-with-button">
+                <input type="text" id="nuevo_requisito_input" name="nuevo_requisito" placeholder="Especificar otro requisito...">
+                <button type="button" id="añadir_requisito" class="btn btn-add">
+                  <i class="fas fa-plus"></i> Añadir requisito
+                </button>
+              </div>
+              <div id="requisito-feedback" class="feedback-message" style="display: none;"></div>
+            </div>
+            
+            <!-- Los requisitos personalizados ahora se añadirán directamente a la cuadrícula principal -->
+            <div class="validation-indicator" id="requisitos-validation">Por favor, selecciona al menos una opción</div>
+          </div>
+
+          <!-- III.5 Idioma que utiliza en su trabajo -->
+          <div class="empleo-card" id="idioma-card">
+            <h3>Idioma que utiliza en su trabajo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="idioma_ingles" name="idioma" value="Inglés">
+                <label for="idioma_ingles" class="option-label">Inglés</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="idioma_frances" name="idioma" value="Francés">
+                <label for="idioma_frances" class="option-label">Francés</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="idioma_aleman" name="idioma" value="Alemán">
+                <label for="idioma_aleman" class="option-label">Alemán</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="idioma_japones" name="idioma" value="Japonés">
+                <label for="idioma_japones" class="option-label">Japonés</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="idioma_otro" name="idioma" value="Otros">
+                <label for="idioma_otro" class="option-label">Otros</label>
+              </div>
+            </div>
+            <div class="other-input" id="idioma-otro-container" style="display: none;">
+              <label for="idioma_otro_input">Especificar:</label>
+              <input type="text" id="idioma_otro_input" name="idioma_otro" placeholder="Ingresa otro idioma...">
+            </div>
+            <div class="validation-indicator" id="idioma-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.6 Proporción en que utiliza las habilidades del idioma extranjero -->
+          <div class="empleo-card" id="habilidades-idioma-card">
+            <h3>Proporción en que utiliza las habilidades del idioma extranjero en su trabajo</h3>
+            <div class="slider-container">
+              <label>Hablar: <span class="slider-value" id="hablar-value">0</span>%</label>
+              <input type="range" id="habilidad_hablar" name="habilidad_hablar" min="0" max="100" value="0" step="1">
+              <div class="slider-progress" id="hablar-progress"></div>
+            </div>
+            <div class="slider-container">
+              <label>Escribir: <span class="slider-value" id="escribir-value">0</span>%</label>
+              <input type="range" id="habilidad_escribir" name="habilidad_escribir" min="0" max="100" value="0" step="1">
+              <div class="slider-progress" id="escribir-progress"></div>
+            </div>
+            <div class="slider-container">
+              <label>Leer: <span class="slider-value" id="leer-value">0</span>%</label>
+              <input type="range" id="habilidad_leer" name="habilidad_leer" min="0" max="100" value="0" step="1">
+              <div class="slider-progress" id="leer-progress"></div>
+            </div>
+            <div class="slider-container">
+              <label>Escuchar: <span class="slider-value" id="escuchar-value">0</span>%</label>
+              <input type="range" id="habilidad_escuchar" name="habilidad_escuchar" min="0" max="100" value="0" step="1">
+              <div class="slider-progress" id="escuchar-progress"></div>
+            </div>
+          </div>
+
+          <!-- III.7 Antigüedad en el empleo -->
+          <div class="empleo-card" id="antiguedad-card">
+            <h3>Antigüedad en el empleo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="antiguedad_menos" name="antiguedad" value="Menos de un año">
+                <label for="antiguedad_menos" class="option-label">Menos de un año</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="antiguedad_un" name="antiguedad" value="Un año">
+                <label for="antiguedad_un" class="option-label">Un año</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="antiguedad_dos" name="antiguedad" value="Dos años">
+                <label for="antiguedad_dos" class="option-label">Dos años</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="antiguedad_tres" name="antiguedad" value="Tres años">
+                <label for="antiguedad_tres" class="option-label">Tres años</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="antiguedad_mas" name="antiguedad" value="Más de tres años">
+                <label for="antiguedad_mas" class="option-label">Más de tres años</label>
+              </div>
+            </div>
+            <div class="other-input">
+              <label for="anio_ingreso">Año de ingreso:</label>
+              <input type="text" id="anio_ingreso" name="anio_ingreso" placeholder="Ingresa el año...">
+            </div>
+            <div class="validation-indicator" id="antiguedad-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.8 Ingreso (salario mínimo mensual) -->
+          <div class="empleo-card" id="ingreso-card">
+            <h3>Ingreso (salario mínimo mensual)</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="ingreso_menos_cinco" name="ingreso" value="Menos de cinco">
+                <label for="ingreso_menos_cinco" class="option-label">Menos de cinco</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="ingreso_cinco_siete" name="ingreso" value="Entre cinco y siete">
+                <label for="ingreso_cinco_siete" class="option-label">Entre cinco y siete</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="ingreso_ocho_diez" name="ingreso" value="Entre 8 y 10">
+                <label for="ingreso_ocho_diez" class="option-label">Entre 8 y 10</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="ingreso_mas_diez" name="ingreso" value="Más de 10">
+                <label for="ingreso_mas_diez" class="option-label">Más de 10</label>
+              </div>
+            </div>
+            <div class="validation-indicator" id="ingreso-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.9 Nivel jerárquico en el trabajo -->
+          <div class="empleo-card" id="jerarquia-card">
+            <h3>Nivel jerárquico en el trabajo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="jerarquia_tecnico" name="nivel_jerarquico" value="Técnico">
+                <label for="jerarquia_tecnico" class="option-label">Técnico</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="jerarquia_supervisor" name="nivel_jerarquico" value="Supervisor">
+                <label for="jerarquia_supervisor" class="option-label">Supervisor</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="jerarquia_jefe" name="nivel_jerarquico" value="Jefe de área">
+                <label for="jerarquia_jefe" class="option-label">Jefe de área</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="jerarquia_funcionario" name="nivel_jerarquico" value="Funcionario">
+                <label for="jerarquia_funcionario" class="option-label">Funcionario</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="jerarquia_directivo" name="nivel_jerarquico" value="Directivo">
+                <label for="jerarquia_directivo" class="option-label">Directivo</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="jerarquia_empresario" name="nivel_jerarquico" value="Empresario">
+                <label for="jerarquia_empresario" class="option-label">Empresario</label>
+              </div>
+            </div>
+            <div class="validation-indicator" id="jerarquia-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- III.10 Condición de trabajo -->
+          <div class="empleo-card" id="condicion-trabajo-card">
+            <h3>Condición de trabajo</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <input type="radio" id="condicion_base" name="condicion_trabajo" value="Base">
+                <label for="condicion_base" class="option-label">Base</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="condicion_eventual" name="condicion_trabajo" value="Eventual">
+                <label for="condicion_eventual" class="option-label">Eventual</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="condicion_contrato" name="condicion_trabajo" value="Contrato">
+                <label for="condicion_contrato" class="option-label">Contrato</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="condicion_otro" name="condicion_trabajo" value="Otros">
+                <label for="condicion_otro" class="option-label">Otros</label>
+              </div>
+            </div>
+            <div class="other-input" id="condicion-otro-container" style="display: none;">
+              <label for="condicion_otro_input">Especificar:</label>
+              <input type="text" id="condicion_otro_input" name="condicion_otro" placeholder="Ingresa otra condición...">
+            </div>
+            <div class="validation-indicator" id="condicion-trabajo-validation">Por favor, selecciona una opción</div>
+          </div>
+
+          <!-- controles del wizard -->
+          <div class="wizard-nav">
+            <button type="button" id="prevBtn" class="btn-prev">
+              <span class="arrow-container">
+                <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                  <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                  </g>
+                </svg>
+              </span>
+              <span class="text">Atrás</span>
+            </button>
+
+            <button type="button" id="nextBtn" class="btn-next">
+              <span class="text">Siguiente</span>
+              <span class="arrow-container">
+                <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                  <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path class="arrow-1" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-2" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="arrow-3" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                  </g>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="js/firebase/firebase-init.js"></script>
+  <script src="js/models/Usuario.js"></script>
+  <script src="js/models/UbicacionLaboral.js"></script>
+  <script src="js/models/Empleo.js"></script>
+  <script src="js/auth/encuesta.js"></script>
+  <script src="js/modulos/modulo4/modulo4.js"></script>
+  <script src="js/user-profile.js"></script>
+  <!-- Script para cargar el navbar dinámicamente -->
+  <script src="js/navbar-loader.js"></script>
+  <!-- Script para mejorar los sliders -->
+  <script src="js/custom-sliders.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrativo</title>
+  
+  <!-- Librerías externas -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Hojas de estilo básicas -->
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/hourglass-loader.css">
+  
+  <!-- Estilos específicos del admin -->
+  <link rel="stylesheet" href="css/admin/admin-layout.css">
+  <link rel="stylesheet" href="css/admin/admin-charts.css">
+  <link rel="stylesheet" href="css/admin/admin-dashboard-charts.css">
+  <link rel="stylesheet" href="css/admin/career-management.css">
+  <link rel="stylesheet" href="css/admin/survey-period-manager.css">
+  <link rel="stylesheet" href="css/admin/news-management.css">
+</head>
+<body class="admin-body">
+  <!-- Navbar dinámico -->
+  <div id="navbar-placeholder"></div>
+  
+  <!-- Preloader -->
+  <div id="preloader" class="hourglass-loader" style="display: none;">
+    <div class="inner"></div>
+  </div>
+  
+  <!-- Panel principal -->
+  <div class="admin-wrapper">
+    <!-- Sidebar para navegación interna del panel -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-chart-pie"></i> <span id="user-name-header">Panel Admin</span></h3>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active" data-view="level1-dashboard">
+            <a href="#"><i class="fas fa-tachometer-alt"></i> datos egresados</a>
+          </li>
+          <li data-view="career-management">
+            <a href="#"><i class="fas fa-university"></i> Gestión de Carreras</a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Espaciador flexible para empujar el botón al fondo -->
+      <div class="sidebar-spacer"></div>
+      <!-- Botón de cerrar sesión -->
+      <div class="sidebar-logout">
+        <button id="logout-btn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+    
+    <!-- Contenido principal -->
+    <main id="admin-content-area" class="admin-content">
+      <!-- Aquí se cargará dinámicamente el contenido de las vistas -->
+      <div class="admin-loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Cargando panel administrativo...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-init.js"></script>
+  <script>
+    // Agregar log global para capturar errores no manejados
+    window.addEventListener('error', function(e) {
+      console.error('[ERROR GLOBAL]', e.message, e.filename, e.lineno, e.colno, e.error);
+      document.getElementById('admin-content-area').innerHTML = `
+        <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">
+          <h3>Error no manejado detectado</h3>
+          <p><strong>Mensaje:</strong> ${e.message}</p>
+          <p><strong>Archivo:</strong> ${e.filename}</p>
+          <p><strong>Línea:</strong> ${e.lineno}:${e.colno}</p>
+          <button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>
+        </div>
+      `;
+    });
+
+    console.log('[ADMIN INIT] Iniciando carga de la página admin.html');
+    
+    // Asegurarnos de que Firebase esté inicializado antes de ejecutar cualquier otro script
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[ADMIN INIT] DOM completamente cargado');
+      
+      // Inicializar Firebase explícitamente
+      if (typeof window.initFirebase === 'function') {
+        console.log('[ADMIN INIT] Inicializando Firebase...');
+        window.initFirebase();
+        console.log('[ADMIN INIT] Firebase inicializado correctamente');
+        
+        // Cargar los scripts administrativos dinámicamente después de que Firebase esté listo
+        function loadScript(src, callback) {
+          console.log(`[ADMIN INIT] Cargando script: ${src}`);
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = function() {
+            console.log(`[ADMIN INIT] Script cargado exitosamente: ${src}`);
+            if (callback) callback();
+          };
+          script.onerror = function(e) {
+            console.error(`[ADMIN INIT] Error al cargar script: ${src}`, e);
+            document.getElementById('admin-content-area').innerHTML = `
+              <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">
+                <h3>Error al cargar script</h3>
+                <p><strong>Script:</strong> ${src}</p>
+                <button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>
+              </div>
+            `;
+          };
+          document.body.appendChild(script);
+        }
+        
+        // Mostrar estado de carga en el contenido
+        document.getElementById('admin-content-area').innerHTML = `
+          <div class="admin-loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Inicializando panel administrativo...</p>
+            <small id="loading-status">Cargando scripts...</small>
+          </div>
+        `;
+        
+        // Función para actualizar el estado de carga
+        function updateLoadingStatus(message) {
+          const statusEl = document.getElementById('loading-status');
+          if (statusEl) statusEl.textContent = message;
+          console.log(`[ADMIN INIT] Estado: ${message}`);
+        }
+        
+        // Cargar los modelos primero
+        updateLoadingStatus('Cargando modelos de datos...');
+        loadScript('js/models/Usuario.js', function() {
+          loadScript('js/models/UbicacionLaboral.js', function() {
+            loadScript('js/models/Empleo.js', function() {
+              loadScript('js/models/DesempenoProfesional.js', function() {
+                loadScript('js/models/EmpresaData.js', function() {
+                  // Luego cargar los scripts administrativos
+                  updateLoadingStatus('Cargando servicios de datos...');
+                  loadScript('js/admin/admin-data-service.js', function() {
+                    updateLoadingStatus('Cargando núcleo administrativo...');
+                    loadScript('js/admin/admin-core.js', function() {
+                      updateLoadingStatus('Cargando navegación...');
+                      loadScript('js/navbar-loader.js', function() {
+                        // Cargar los scripts de gestión de carreras
+                        updateLoadingStatus('Cargando módulo de gestión de carreras...');
+                        loadScript('js/admin/career-management-service.js', function() {
+                          loadScript('js/admin/career-management.js', function() {
+                            // Cargar el gestor de periodos de encuesta
+                            updateLoadingStatus('Cargando gestor de periodos de encuesta...');
+                            loadScript('js/admin/survey-period-manager.js', function() {
+                              // Cargar el sistema de gestión de noticias
+                              updateLoadingStatus('Cargando sistema de noticias...');
+                              loadScript('js/admin/news-management.js', function() {
+                                // Cargar los módulos de gráficas
+                                updateLoadingStatus('Cargando módulos de gráficas...');
+                                loadScript('js/admin/charts/admin-chart-manager.js', function() {
+                                  // Los módulos individuales se cargarán dinámicamente desde el gestor
+                                  updateLoadingStatus('Inicialización completa');
+                                });
+                              });
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      } else {
+        console.error('[ADMIN INIT] Error: La función initFirebase no está disponible.');
+        document.getElementById('admin-content-area').innerHTML = `
+          <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">
+            <h3>Error de inicialización</h3>
+            <p>No se pudo encontrar la función initFirebase. Esto puede ocurrir si hay un problema con el archivo firebase-init.js.</p>
+            <p>Verifica la consola del navegador para más detalles.</p>
+            <button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

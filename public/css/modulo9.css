@@ -1,0 +1,211 @@
+/* Módulo 9 - Comentarios y Sugerencias */
+
+/* Estilos generales para la tarjeta de comentarios */
+.comentarios-card {
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 25px;
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.comentarios-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.intro-text {
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Sistema de pestañas */
+.tabs-container {
+  margin-top: 20px;
+}
+
+.tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #f1f1f1;
+  margin-bottom: 20px;
+  gap: 5px;
+}
+
+.tab-button {
+  padding: 12px 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #718096;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 3px solid transparent;
+  outline: none;
+}
+
+.tab-button i {
+  font-size: 18px;
+}
+
+.tab-button:hover {
+  color: #4a5568;
+  background-color: #f7fafc;
+}
+
+.tab-button.active {
+  color: #3a7bd5;
+  border-bottom: 3px solid #3a7bd5;
+  background-color: #f0f7ff;
+}
+
+/* Contenido de las pestañas */
+.tabs-content {
+  position: relative;
+  min-height: 300px;
+}
+
+.tab-pane {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tab-pane.active {
+  display: block;
+  opacity: 1;
+}
+
+.tab-header {
+  margin-bottom: 15px;
+}
+
+.tab-header h3 {
+  color: #2d3748;
+  font-size: 18px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tab-header h3 i {
+  color: #3a7bd5;
+}
+
+.tab-description {
+  color: #718096;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Área de comentarios */
+.comment-area {
+  margin-top: 15px;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 150px;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 15px;
+  color: #2d3748;
+  transition: all 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+  outline: none;
+}
+
+.comment-input::placeholder {
+  color: #a0aec0;
+}
+
+.character-counter {
+  margin-top: 8px;
+  text-align: right;
+  font-size: 12px;
+  color: #718096;
+}
+
+/* Mensaje de validación */
+.validation-message {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #f0f7ff;
+  border-left: 3px solid #3a7bd5;
+  color: #2c5282;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+/* Botón de finalización */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  padding: 10px 25px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  background: #38b2ac;
+  transition: 0.3s;
+  box-shadow: 5px 5px 0 #2c7a7b;
+  transform: skewX(-10deg);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-submit:focus {
+  outline: none;
+}
+
+.btn-submit:hover {
+  transition: 0.3s;
+  box-shadow: 8px 8px 0 #1c4749;
+}
+
+.btn-submit .text {
+  transform: skewX(10deg);
+}
+
+.btn-submit .icon {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  transform: skewX(10deg);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .tabs-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tab-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .comentarios-card {
+    padding: 16px;
+  }
+  
+  .comment-input {
+    min-height: 120px;
+  }
+}

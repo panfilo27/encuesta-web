@@ -1,0 +1,326 @@
+/* admin-charts.css - Estilos específicos para gráficas y visualizaciones */
+
+/* Contenedor principal para gráficas */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+/* Altura específica para tipos de gráficas */
+.chart-container.chart-pie,
+.chart-container.chart-doughnut {
+  height: 350px;
+  max-height: 350px;
+}
+
+.chart-container.chart-bar {
+  height: 400px;
+  max-height: 400px;
+}
+
+.chart-container.chart-horizontal-bar {
+  height: 450px;
+  max-height: 450px;
+}
+
+.chart-container.chart-line {
+  height: 300px;
+  max-height: 300px;
+}
+
+/* Estilos para leyendas personalizadas */
+.custom-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.5rem 0;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+}
+
+.legend-item.inactive {
+  opacity: 0.5;
+}
+
+/* Estilos para tarjetas de KPI */
+.kpi-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  text-align: center;
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #4CAF50;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.kpi-title {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-change {
+  font-size: 0.8rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.kpi-change.positive {
+  color: #4CAF50;
+}
+
+.kpi-change.negative {
+  color: #F44336;
+}
+
+/* Contenedor de gráfica con título y acciones */
+.chart-widget {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  height: 100%;
+}
+
+.chart-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.chart-widget-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.chart-widget-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chart-widget-body {
+  position: relative;
+  height: calc(100% - 50px);
+}
+
+/* Estilos para gráficas interactivas */
+.chart-clickable {
+  cursor: pointer;
+}
+
+.chart-tooltip {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Colores para datos */
+.data-color-1 { color: #4CAF50; }
+.data-color-2 { color: #2196F3; }
+.data-color-3 { color: #FF9800; }
+.data-color-4 { color: #9C27B0; }
+.data-color-5 { color: #F44336; }
+.data-color-6 { color: #00BCD4; }
+.data-color-7 { color: #FFC107; }
+.data-color-8 { color: #3F51B5; }
+
+.data-bg-color-1 { background-color: #4CAF50; }
+.data-bg-color-2 { background-color: #2196F3; }
+.data-bg-color-3 { background-color: #FF9800; }
+.data-bg-color-4 { background-color: #9C27B0; }
+.data-bg-color-5 { background-color: #F44336; }
+.data-bg-color-6 { background-color: #00BCD4; }
+.data-bg-color-7 { background-color: #FFC107; }
+.data-bg-color-8 { background-color: #3F51B5; }
+
+/* Estilos para las secciones de filtros */
+.filter-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.filter-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-control {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.filter-select,
+.filter-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+/* Mensaje de sin datos */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+}
+
+.no-data-icon {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para botones de opciones de visualización */
+.chart-view-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chart-view-option {
+  padding: 0.35rem 0.75rem;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.chart-view-option.active {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+/* Estilos para interactividad entre gráficas */
+.linked-chart {
+  position: relative;
+}
+
+.linked-chart::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  width: 30px;
+  height: 2px;
+  background-color: #ddd;
+  z-index: 1;
+}
+
+.linked-chart:last-child::after {
+  display: none;
+}
+
+/* Media queries para responsividad de gráficas */
+@media (max-width: 768px) {
+  .chart-container {
+    min-height: 250px;
+  }
+  
+  .kpi-value {
+    font-size: 1.5rem;
+  }
+  
+  .chart-widget {
+    padding: 1rem;
+  }
+  
+  .chart-widget-title {
+    font-size: 1rem;
+  }
+}

@@ -1,7 +1,8 @@
 // models/Usuario.js
 // Entidad/factory para asegurar tipos y valores por defecto de usuario
 
-export function crearUsuarioDesdeFormulario(form, user, idiomas = [], paquetes = []) {
+// Función global para crear un usuario desde el formulario
+window.crearUsuarioDesdeFormulario = function(form, user, idiomas = [], paquetes = []) {
   return {
     uid: user?.uid || '',
     email: user?.email || '',
@@ -29,11 +30,47 @@ export function crearUsuarioDesdeFormulario(form, user, idiomas = [], paquetes =
   };
 }
 
-// Si en el futuro recibes datos "crudos" de Firestore, puedes hacer:
-// export function parseUsuarioFirestore(data) {
-//   return {
-//     uid: data.uid || '',
-//     email: data.email || '',
-//     ...etc
-//   }
-// }
+// Función para parsear datos de usuario desde Firestore
+window.parseUsuarioFirestore = function(data) {
+  if (!data) return null;
+  
+  return {
+    // Datos básicos
+    uid: data.uid || '',
+    email: data.email || '',
+    
+    // Datos personales
+    nombre: data.nombre || '',
+    apellidoPaterno: data.apellidoPaterno || '',
+    apellidoMaterno: data.apellidoMaterno || '',
+    noControl: data.noControl || '',
+    fechaNacimiento: data.fechaNacimiento || '',
+    curp: data.curp || '',
+    sexo: data.sexo || '',
+    estadoCivil: data.estadoCivil || '',
+    
+    // Ubicación
+    domicilio: data.domicilio || '',
+    ciudad: data.ciudad || '',
+    municipio: data.municipio || '',
+    estado: data.estado || '',
+    
+    // Contacto
+    telefono: data.telefono || '',
+    telCasa: data.telCasa || '',
+    
+    // Académico
+    carrera: data.carrera || '',
+    titulado: data.titulado === true,
+    trabaja: data.trabaja === true,
+    estudia: data.estudia === true,
+    mesEgreso: data.mesEgreso || '',
+    
+    // Arrays
+    idiomas: Array.isArray(data.idiomas) ? data.idiomas : [],
+    paquetes: Array.isArray(data.paquetes) ? data.paquetes : [],
+    
+    // Timestamp
+    ultimaModificacion: data.ultimaModificacion || null
+  };
+}
