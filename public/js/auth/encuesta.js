@@ -298,9 +298,20 @@ window.finalizarEncuestaGlobal = async function() {
     // 4. GUARDAR DATOS EN FIRESTORE
     // Añadir campos de metadata
     encuestaConsolidadaData.fechaCompletado = firebase.firestore.FieldValue.serverTimestamp();
-    if (currentPeriod) {
+    
+    // Verificar si hay un periodo activo
+    console.log('[Encuesta Firebase] Verificando periodo activo:', currentPeriod);
+    
+    // Solo agregar campos de periodo si currentPeriod y sus propiedades existen
+    if (currentPeriod && currentPeriod.id && currentPeriod.name) {
       encuestaConsolidadaData.periodoId = currentPeriod.id;
       encuestaConsolidadaData.periodoNombre = currentPeriod.name;
+      console.log('[Encuesta Firebase] Usando periodo:', currentPeriod.id, currentPeriod.name);
+    } else {
+      // Si no hay periodo activo, usar valores por defecto
+      console.log('[Encuesta Firebase] No hay periodo activo, usando valores por defecto');
+      encuestaConsolidadaData.periodoId = 'default';
+      encuestaConsolidadaData.periodoNombre = 'Periodo No Especificado';
     }
 
     // Guardar la encuesta consolidada como un nuevo documento en el historial

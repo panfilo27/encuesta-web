@@ -130,14 +130,29 @@ function verificarSesionYRedirigir() {
       
       try {
         // Primero verificar el rol del usuario
-        const userDoc = await db.collection('usuarios').doc(user.uid).get();
+        console.log('[Auth DEBUG] Verificando rol en verificarSesionYRedirigir para:', user.email);
         
-        // Verificar si es administrador
-        if (userDoc.exists && userDoc.data().rol === 'admin') {
-          console.log('[Auth] Rol de usuario: admin - Redirigiendo al panel de administración');
-          localStorage.setItem('user_role', 'admin');
-          window.location.href = 'admin.html';
-          return;
+        try {
+          const userDoc = await db.collection('usuarios').doc(user.uid).get();
+          
+          // Mostrar información de debug
+          if (userDoc.exists) {
+            console.log('[Auth DEBUG] Documento del usuario:', userDoc.data());
+            console.log('[Auth DEBUG] Rol del usuario:', userDoc.data().rol);
+          } else {
+            console.log('[Auth DEBUG] ¡No existe documento para este usuario!');
+          }
+          
+          // Verificar si es administrador
+          if (userDoc.exists && userDoc.data().rol === 'admin') {
+            console.log('[Auth] Rol de usuario: admin - Redirigiendo al panel de administración');
+            localStorage.setItem('user_role', 'admin');
+            // Retrasar la redirección un poco para poder ver los logs en la consola
+            setTimeout(() => { window.location.href = 'admin.html'; }, 500);
+            return;
+          }
+        } catch (e) {
+          console.error('[Auth DEBUG] Error al verificar rol:', e);
         }
         
         // Verificar si es jefe de departamento
@@ -322,17 +337,63 @@ loginForm.onsubmit = async e => {
     message.classList.add("success");
     message.textContent = "¡Inicio de sesión exitoso!";
     
-    // Verificar si ya completó la encuesta y redirigir según corresponda
+    // Verificar el rol del usuario y redirigir según corresponda
     setTimeout(async () => {
       try {
         const user = firebase.auth().currentUser;
-        const userDoc = await db.collection('usuarios').doc(user.uid).get();
+        console.log('[Auth DEBUG] Verificando rol de usuario:', user.email);
         
+        try {
+          const userDoc = await db.collection('usuarios').doc(user.uid).get();
+          
+          // Mostrar información de debug
+          if (userDoc.exists) {
+            console.log('[Auth DEBUG] Documento del usuario:', userDoc.data());
+            console.log('[Auth DEBUG] Rol del usuario:', userDoc.data().rol);
+          } else {
+            console.log('[Auth DEBUG] ¡No existe documento para este usuario!');
+          }
+          
+          // Verificar si es administrador - PRIMERO verificar roles especiales
+          if (userDoc.exists && userDoc.data().rol === 'admin') {
+            console.log('[Auth] Rol de usuario: admin - Redirigiendo al panel de administración');
+            localStorage.setItem('user_role', 'admin');
+            // Retrasar la redirección un poco para poder ver los logs en la consola
+            setTimeout(() => { window.location.href = 'admin.html'; }, 500);
+            return;
+          }
+        } catch (e) {
+          console.error('[Auth DEBUG] Error al verificar rol:', e);
+        }
+        
+        // Verificar si es jefe de departamento
+        if (userDoc.exists && userDoc.data().rol === 'jefeDepartamento') {
+          console.log('[Auth] Rol de usuario: jefeDepartamento - Redirigiendo al panel de jefe de departamento');
+          localStorage.setItem('user_role', 'jefeDepartamento');
+          window.location.href = 'department-head.html';
+          return;
+        }
+        
+        // Verificar si el usuario está en medio de completar una encuesta
+        const currentModule = localStorage.getItem('current_module');
+        
+        if (currentModule) {
+          // Si está en medio de una encuesta, enviarlo al módulo en el que estaba
+          console.log(`[Auth] Usuario estaba en el módulo ${currentModule}, redirigiendo...`);
+          window.location.href = `modulo${currentModule}.html`;
+          return;
+        }
+        
+        // Si no está en medio de una encuesta, verificar si ya la completó
         if (userDoc.exists && userDoc.data().encuestaCompletada === true) {
           // Si ya completó una encuesta, redirigir al dashboard
+          console.log('[Auth] Usuario ya completó encuesta, redirigiendo a dashboard');
           window.location.href = 'dashboard.html';
         } else {
           // Si no ha completado una encuesta, redirigir al módulo 1
+          console.log('[Auth] Usuario no ha completado encuesta, redirigiendo a módulo 1');
+          // Establecer que estamos en el módulo 1
+          localStorage.setItem('current_module', '1');
           window.location.href = 'modulo1.html';
         }
       } catch (error) {
