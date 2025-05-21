@@ -151,16 +151,17 @@ function verificarSesionYRedirigir() {
             setTimeout(() => { window.location.href = 'admin.html'; }, 500);
             return;
           }
+          
+          // Verificar si es jefe de departamento - DENTRO del mismo bloque try
+          if (userDoc.exists && userDoc.data().rol === 'jefeDepartamento') {
+            console.log('[Auth] Rol de usuario: jefeDepartamento - Redirigiendo al panel de jefe de departamento');
+            localStorage.setItem('user_role', 'jefeDepartamento');
+            // Retrasar la redirección un poco para poder ver los logs
+            setTimeout(() => { window.location.href = 'department-head.html'; }, 500);
+            return;
+          }
         } catch (e) {
           console.error('[Auth DEBUG] Error al verificar rol:', e);
-        }
-        
-        // Verificar si es jefe de departamento
-        if (userDoc.exists && userDoc.data().rol === 'jefeDepartamento') {
-          console.log('[Auth] Rol de usuario: jefeDepartamento - Redirigiendo al panel de jefe de departamento');
-          localStorage.setItem('user_role', 'jefeDepartamento');
-          window.location.href = 'department-head.html';
-          return;
         }
         
         // Si no es admin, continuar con la lógica normal de usuario
@@ -362,16 +363,17 @@ loginForm.onsubmit = async e => {
             setTimeout(() => { window.location.href = 'admin.html'; }, 500);
             return;
           }
+          
+          // Verificar si es jefe de departamento - DENTRO del mismo bloque try que el admin
+          if (userDoc.exists && userDoc.data().rol === 'jefeDepartamento') {
+            console.log('[Auth] Rol de usuario: jefeDepartamento - Redirigiendo al panel de jefe de departamento');
+            localStorage.setItem('user_role', 'jefeDepartamento');
+            // Retrasar la redirección un poco para poder ver los logs
+            setTimeout(() => { window.location.href = 'department-head.html'; }, 500);
+            return;
+          }
         } catch (e) {
           console.error('[Auth DEBUG] Error al verificar rol:', e);
-        }
-        
-        // Verificar si es jefe de departamento
-        if (userDoc.exists && userDoc.data().rol === 'jefeDepartamento') {
-          console.log('[Auth] Rol de usuario: jefeDepartamento - Redirigiendo al panel de jefe de departamento');
-          localStorage.setItem('user_role', 'jefeDepartamento');
-          window.location.href = 'department-head.html';
-          return;
         }
         
         // Verificar si el usuario está en medio de completar una encuesta
