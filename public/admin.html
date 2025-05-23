@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/admin/career-management.css">
   <link rel="stylesheet" href="css/admin/survey-period-manager.css">
   <link rel="stylesheet" href="css/admin/news-management.css">
+  <link rel="stylesheet" href="css/admin/admin-graduates-list.css">
 </head>
 <body class="admin-body">
   <!-- Navbar dinámico -->
@@ -66,6 +67,9 @@
     </main>
   </div>
 
+  <!-- Librerías externas -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
@@ -75,15 +79,14 @@
     // Agregar log global para capturar errores no manejados
     window.addEventListener('error', function(e) {
       console.error('[ERROR GLOBAL]', e.message, e.filename, e.lineno, e.colno, e.error);
-      document.getElementById('admin-content-area').innerHTML = `
-        <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">
-          <h3>Error no manejado detectado</h3>
-          <p><strong>Mensaje:</strong> ${e.message}</p>
-          <p><strong>Archivo:</strong> ${e.filename}</p>
-          <p><strong>Línea:</strong> ${e.lineno}:${e.colno}</p>
-          <button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>
-        </div>
-      `;
+      document.getElementById('admin-content-area').innerHTML = 
+        '<div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">' +
+          '<h3>Error no manejado detectado</h3>' +
+          '<p><strong>Mensaje:</strong> ' + e.message + '</p>' +
+          '<p><strong>Archivo:</strong> ' + e.filename + '</p>' +
+          '<p><strong>Línea:</strong> ' + e.lineno + ':' + e.colno + '</p>' +
+          '<button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>' +
+        '</div>';
     });
 
     console.log('[ADMIN INIT] Iniciando carga de la página admin.html');
@@ -121,19 +124,18 @@
         }
         
         // Mostrar estado de carga en el contenido
-        document.getElementById('admin-content-area').innerHTML = `
-          <div class="admin-loading">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Inicializando panel administrativo...</p>
-            <small id="loading-status">Cargando scripts...</small>
-          </div>
-        `;
+        document.getElementById('admin-content-area').innerHTML = 
+          '<div class="admin-loading">' +
+            '<i class="fas fa-spinner fa-spin"></i>' +
+            '<p>Inicializando panel administrativo...</p>' +
+            '<small id="loading-status">Cargando scripts...</small>' +
+          '</div>';
         
         // Función para actualizar el estado de carga
         function updateLoadingStatus(message) {
           const statusEl = document.getElementById('loading-status');
           if (statusEl) statusEl.textContent = message;
-          console.log(`[ADMIN INIT] Estado: ${message}`);
+          console.log('[ADMIN INIT] Estado: ' + message);
         }
         
         // Cargar los modelos primero
@@ -157,14 +159,42 @@
                             // Cargar el gestor de periodos de encuesta
                             updateLoadingStatus('Cargando gestor de periodos de encuesta...');
                             loadScript('js/admin/survey-period-manager.js', function() {
-                              // Cargar el sistema de gestión de noticias
-                              updateLoadingStatus('Cargando sistema de noticias...');
-                              loadScript('js/admin/news-management.js', function() {
-                                // Cargar los módulos de gráficas
-                                updateLoadingStatus('Cargando módulos de gráficas...');
-                                loadScript('js/admin/charts/admin-chart-manager.js', function() {
-                                  // Los módulos individuales se cargarán dinámicamente desde el gestor
-                                  updateLoadingStatus('Inicialización completa');
+                              // Cargar el gestor de lista de egresados
+                              updateLoadingStatus('Cargando gestor de lista de egresados...');
+                              // Cargar los scripts de exportación a Excel
+                              updateLoadingStatus('Cargando servicios de exportación a Excel...');
+                              loadScript('js/admin/excel-export-modulo1.js', function() {
+                                loadScript('js/admin/excel-export-modulo2.js', function() {
+                                  loadScript('js/admin/excel-export-modulo3.js', function() {
+                                    loadScript('js/admin/excel-export-modulo4.js', function() {
+                                      loadScript('js/admin/excel-export-modulo5.js', function() {
+                                        loadScript('js/admin/excel-export-modulo6.js', function() {
+                                          loadScript('js/admin/excel-export-modulo7.js', function() {
+                                            loadScript('js/admin/excel-export-modulo8.js', function() {
+                                              loadScript('js/admin/excel-export-modulo9.js', function() {
+                                                loadScript('js/admin/excel-export-service.js', function() {
+                                                  // Cargar el gestor de lista de egresados
+                                                  updateLoadingStatus('Cargando gestor de lista de egresados...');
+                                                  loadScript('js/admin/graduates-list-manager.js', function() {
+                                                    // Cargar el sistema de gestión de noticias
+                                                    updateLoadingStatus('Cargando sistema de noticias...');
+                                                    loadScript('js/admin/news-management.js', function() {
+                                                      // Cargar los módulos de gráficas
+                                                      updateLoadingStatus('Cargando módulos de gráficas...');
+                                                      loadScript('js/admin/charts/admin-chart-manager.js', function() {
+                                                        // Los módulos individuales se cargarán dinámicamente desde el gestor
+                                                        updateLoadingStatus('Inicialización completa');
+                                                      });
+                                                    });
+                                                  });
+                                                });
+                                              });
+                                            });
+                                          });
+                                        });
+                                      });
+                                    });
+                                  });
                                 });
                               });
                             });
@@ -180,14 +210,13 @@
         });
       } else {
         console.error('[ADMIN INIT] Error: La función initFirebase no está disponible.');
-        document.getElementById('admin-content-area').innerHTML = `
-          <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">
-            <h3>Error de inicialización</h3>
-            <p>No se pudo encontrar la función initFirebase. Esto puede ocurrir si hay un problema con el archivo firebase-init.js.</p>
-            <p>Verifica la consola del navegador para más detalles.</p>
-            <button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>
-          </div>
-        `;
+        document.getElementById('admin-content-area').innerHTML = 
+          '<div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px;">' +
+            '<h3>Error de inicialización</h3>' +
+            '<p>No se pudo encontrar la función initFirebase. Esto puede ocurrir si hay un problema con el archivo firebase-init.js.</p>' +
+            '<p>Verifica la consola del navegador para más detalles.</p>' +
+            '<button onclick="location.reload()" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Recargar página</button>' +
+          '</div>';
       }
     });
   </script>

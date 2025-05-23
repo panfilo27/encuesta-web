@@ -168,61 +168,97 @@ window.initModulo2UI = function() {
   
   // Función para cargar datos desde Firebase
   async function cargarDatosDesdeFirebase() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        console.log('[Módulo 2] Intentando cargar datos desde Firebase');
-        
-        // Esperar a que la autenticación se inicialice completamente
-        const user = await new Promise(authResolve => {
-          const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            unsubscribe(); // Dejar de escuchar cambios de autenticación
-            authResolve(user);
-          });
+    try {
+      console.log('[Módulo 2] Intentando cargar datos desde Firebase');
+      
+      // Esperar a que la autenticación se inicialice completamente
+      const user = await new Promise(authResolve => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe(); // Dejar de escuchar cambios de autenticación
+          authResolve(user);
         });
-        
-        // Verificar si hay un usuario autenticado
-        if (!user) {
-          console.log('[Módulo 2] No hay usuario autenticado para cargar datos de Firebase');
-          return resolve(null);
-        }
-        
-        console.log('[Módulo 2] Usuario autenticado:', user.email);
-        
-        // Referencia a la base de datos donde se almacena el historial de encuestas
-        const db = firebase.firestore();
-        const historialEncuestasRef = db.collection('usuarios').doc(user.uid).collection('historialEncuestas');
-        
-        // Consultar la última encuesta completada
-        const querySnapshot = await historialEncuestasRef.orderBy('fechaCompletado', 'desc').limit(1).get();
-        
-        if (!querySnapshot.empty) {
-          const docMasReciente = querySnapshot.docs[0];
-          if (docMasReciente.data() && docMasReciente.data().satisfaccionAcademica) {
-            console.log('[Módulo 2] Datos de la última encuesta encontrados en Firebase');
-            
-            // Usar parseEvaluacionFirestore si está disponible
-            if (typeof window.parseEvaluacionFirestore === 'function') {
-              const datosParseados = window.parseEvaluacionFirestore(docMasReciente.data().satisfaccionAcademica);
-              console.log('[Módulo 2] Datos procesados con parseEvaluacionFirestore');
-              return resolve(datosParseados);
-            } else {
-              // Si no está disponible, usar los datos crudos
-              console.log('[Módulo 2] Datos crudos - parseEvaluacionFirestore no disponible');
-              return resolve(docMasReciente.data().satisfaccionAcademica);
-            }
-          } else {
-            console.log('[Módulo 2] La última encuesta no contiene datos de satisfacción académica.');
-            return resolve(null);
-          }
-        } else {
-          console.log('[Módulo 2] No se encontraron encuestas previas en el historial de Firebase');
-          return resolve(null);
-        }
-      } catch (error) {
-        console.error('[Módulo 2] Error al consultar Firebase:', error);
-        return resolve(null);
+      });
+      
+      // Verificar si hay un usuario autenticado
+      if (!user) {
+        console.log('[Módulo 2] Usuario no autenticado');
+        return null;
       }
-    });
+      
+      console.log('[Módulo 2] Usuario autenticado:', user.email);
+      
+      // Referencia a la subcolección historialEncuestas del usuario (igual que el módulo 9)
+      const historialEncuestasRef = firebase.firestore()
+        .collection('usuarios')
+        .doc(user.uid)
+        .collection('historialEncuestas');
+      
+      // Consultar la última encuesta completada, ordenada por fecha descendente
+      console.log('[Módulo 2] Consultando última encuesta en historialEncuestas');
+      const querySnapshot = await historialEncuestasRef
+        .orderBy('fechaCompletado', 'desc')
+        .limit(1)
+        .get();
+      
+      if (!querySnapshot.empty) {
+        const docMasReciente = querySnapshot.docs[0];
+        const encuestaData = docMasReciente.data();
+        console.log('[Módulo 2] Encuesta encontrada:', encuestaData ? 'Sí' : 'No');
+        
+        // Mostrar todas las claves disponibles para ayudar a depurar
+        const availableKeys = encuestaData ? Object.keys(encuestaData) : [];
+        console.log('[Módulo 2] Claves disponibles en la encuesta:', availableKeys);
+        
+        // Verificar varias posibles claves donde podrían estar los datos
+        // 1. Verificar el nombre exacto (satisfaccionAcademica)
+        if (encuestaData && encuestaData.satisfaccionAcademica) {
+          const data = encuestaData.satisfaccionAcademica;
+          console.log('[Módulo 2] Datos encontrados en encuestaData.satisfaccionAcademica');
+          return processRatingData(data);
+        }
+        
+        // 2. Verificar modulo2_data (nombre del localStorage)
+        if (encuestaData && encuestaData.modulo2_data) {
+          const data = encuestaData.modulo2_data;
+          console.log('[Módulo 2] Datos encontrados en encuestaData.modulo2_data');
+          return processRatingData(data);
+        }
+        
+        // 3. Buscar por campos específicos - si las propiedades están directamente en la encuesta
+        if (encuestaData && (encuestaData.calidad_docentes || encuestaData.plan_estudios)) {
+          console.log('[Módulo 2] Datos encontrados directamente en el objeto principal');
+          return processRatingData(encuestaData);
+        }
+        
+        // Función para procesar datos con o sin parseador
+        function processRatingData(data) {
+          if (!data) return null;
+          
+          // Aplicar parseador si está disponible
+          let datosParseados;
+          if (typeof window.parseEvaluacionFirestore === 'function') {
+            datosParseados = window.parseEvaluacionFirestore(data);
+            console.log('[Módulo 2] Datos procesados con parseEvaluacionFirestore');
+          } else {
+            console.log('[Módulo 2] parseEvaluacionFirestore no disponible, usando datos sin procesar');
+            datosParseados = data;
+          }
+          
+          return datosParseados;
+        }
+        
+        console.log('[Módulo 2] No se encontraron datos de satisfacción académica en ninguna clave conocida');
+        return null;
+      } else {
+        console.log('[Módulo 2] No se encontraron encuestas previas');
+      }
+      
+      console.log('[Módulo 2] No se encontraron datos de satisfacción académica en ninguna colección');
+      return null;
+    } catch (error) {
+      console.error('[Módulo 2] Error al cargar desde Firebase:', error);
+      return null;
+    }
   }
   
   // Función para aplicar los datos al formulario

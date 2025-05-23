@@ -15,7 +15,12 @@ window.crearObjetoUbicacionLaboral = function(form) {
     // Actividad actual
     actividad_actual: form.actividad_actual?.value || '',
     
-    // Datos de estudios (si aplica)
+    // Datos de estudios (si aplica) 
+    // //Especialidad
+  //Maestría
+//Doctorado
+//Idiomas
+//Otra(especificar)
     estudia: form.actividad_actual?.value?.includes('Estudia') || false,
     tipo_estudio: form.tipo_estudio?.value || '',
     otro_estudio: form.otro_estudio?.value || '',

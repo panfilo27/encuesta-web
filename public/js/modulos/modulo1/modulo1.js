@@ -152,6 +152,64 @@ window.initEncuestaUI = function() {
           // mostrarMensajeError('Error interno: No se pudo procesar la información del perfil.');
           return false; // Fallo crítico
         }
+        
+        // Verificar si la encuesta está en período de contestación
+        try {
+          const db = firebase.firestore();
+          const surveyPeriodsSnapshot = await db.collection('surveyPeriods')
+            .where('active', '==', true)
+            .get();
+          
+          if (surveyPeriodsSnapshot.empty) {
+            console.warn('[Módulo 1] No hay períodos de encuesta activos actualmente.');
+            // Podemos continuar aunque no haya períodos activos, pero lo registramos
+          } else {
+            const now = new Date();
+            let isInPeriod = false;
+            
+            surveyPeriodsSnapshot.forEach(doc => {
+              const periodData = doc.data();
+              const startDate = periodData.startDate?.toDate() || new Date(0);
+              const endDate = periodData.endDate?.toDate() || new Date(8640000000000000); // Fecha máxima
+              
+              if (now >= startDate && now <= endDate) {
+                isInPeriod = true;
+                console.log(`[Módulo 1] Encuesta dentro del período activo: ${periodData.name}`);
+                // Guardar el ID del período en los datos del formulario
+                formData.surveyPeriodId = doc.id;
+                formData.surveyPeriodName = periodData.name;
+              }
+            });
+            
+            if (!isInPeriod) {
+              console.warn('[Módulo 1] La fecha actual está fuera de cualquier período de encuesta activo.');
+              // Continuamos igualmente pero lo registramos
+            }
+          }
+        } catch (error) {
+          console.error('[Módulo 1] Error al verificar período de encuesta:', error);
+          // Continuamos con el guardado aunque falle esta verificación
+        }
+        
+        // Buscar el nombre completo de la carrera si solo tenemos el ID
+        if (formData.carrera && !formData.carreraNombre) {
+          try {
+            const db = firebase.firestore();
+            const carreraDoc = await db.collection('carreras').doc(formData.carrera).get();
+            
+            if (carreraDoc.exists) {
+              const carreraData = carreraDoc.data();
+              formData.carreraNombre = carreraData.nombre || 'No especificada';
+              console.log(`[Módulo 1] Nombre de carrera obtenido: ${formData.carreraNombre}`);
+            } else {
+              console.warn(`[Módulo 1] No se encontró la carrera con ID: ${formData.carrera}`);
+              formData.carreraNombre = 'No especificada';
+            }
+          } catch (error) {
+            console.error('[Módulo 1] Error al obtener nombre de carrera:', error);
+            formData.carreraNombre = 'No especificada';
+          }
+        }
 
         const userRolInstance = UserRol.fromModulo1Data(formData, user.uid, user.email);
 
@@ -268,6 +326,66 @@ window.initEncuestaUI = function() {
     }
   }
   
+  /**
+   * Carga los datos previamente guardados del usuario desde Firestore
+   * @returns {Promise<Object|null>} Datos del módulo 1 o null si no hay datos
+   */
+  async function cargarDatosDesdeFirebase() {
+    try {
+      console.log('[Módulo 1] Intentando cargar datos desde Firebase...');
+      
+      // Esperar a que la autenticación se inicialice completamente
+      const user = await new Promise(authResolve => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe(); // Dejar de escuchar cambios de autenticación
+          authResolve(user);
+        });
+      });
+      
+      // Verificar si hay un usuario autenticado
+      if (!user) {
+        console.log('[Módulo 1] No hay usuario autenticado');
+        return null;
+      }
+      
+      console.log('[Módulo 1] Usuario autenticado:', user.email);
+      
+      // Referencia a la subcolección historialEncuestas del usuario
+      const historialEncuestasRef = firebase.firestore()
+        .collection('usuarios')
+        .doc(user.uid)
+        .collection('historialEncuestas');
+      
+      // Consultar la última encuesta completada, ordenada por fecha descendente
+      const querySnapshot = await historialEncuestasRef
+        .orderBy('fechaCompletado', 'desc')
+        .limit(1)
+        .get();
+      
+      if (!querySnapshot.empty) {
+        const docMasReciente = querySnapshot.docs[0];
+        const encuestaData = docMasReciente.data();
+        
+        // Verificar si tiene datos del módulo 1
+        if (encuestaData && encuestaData.datosPersonales) {
+          console.log('[Módulo 1] Datos recuperados de historialEncuestas:', encuestaData.datosPersonales);
+          
+          // Usar parseador si está disponible (añadir en el futuro)
+          return encuestaData.datosPersonales;
+        } else {
+          console.log('[Módulo 1] La encuesta existe pero no contiene datos personales');
+        }
+      } else {
+        console.log('[Módulo 1] No se encontraron encuestas previas en historialEncuestas');
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('[Módulo 1] Error al cargar datos desde Firebase:', error);
+      return null;
+    }
+  }
+
   // Cargar datos guardados del módulo 1 (primero intenta desde Firebase, luego localStorage)
   async function cargarDatosModulo1() {
     let datosParaCatalogos = null;

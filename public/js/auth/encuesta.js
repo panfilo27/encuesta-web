@@ -201,10 +201,32 @@ window.finalizarEncuestaGlobal = async function() {
         .get();
       
       if (!periodSnapshot.empty) {
-        currentPeriod = periodSnapshot.docs[0].data();
+        const periodoDoc = periodSnapshot.docs[0];
+        currentPeriod = periodoDoc.data();
+        // Guardar también el ID del documento
+        currentPeriod.id = periodoDoc.id;
+        
+        // Obtener solo las fechas sin horas
         const startDate = new Date(currentPeriod.startDate.seconds * 1000);
+        const startDateNoTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        
         const endDate = new Date(currentPeriod.endDate.seconds * 1000);
-        isSurveyPeriodOpen = now >= startDate && now <= endDate;
+        const endDateNoTime = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+        
+        // Fecha actual sin horas
+        const nowNoTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        // Comparar solo las fechas (ignorando horas y minutos)
+        console.log('[Encuesta Firebase] Fecha inicio:', startDateNoTime);
+        console.log('[Encuesta Firebase] Fecha fin:', endDateNoTime);
+        console.log('[Encuesta Firebase] Fecha actual:', nowNoTime);
+        
+        // Añadir un día a la fecha final para que incluya todo el día
+        const endDatePlusOneDay = new Date(endDateNoTime);
+        endDatePlusOneDay.setDate(endDatePlusOneDay.getDate() + 1);
+        
+        isSurveyPeriodOpen = nowNoTime >= startDateNoTime && nowNoTime < endDatePlusOneDay;
+        console.log('[Encuesta Firebase] ¿Encuesta abierta?', isSurveyPeriodOpen);
       }
     }
     
@@ -227,7 +249,10 @@ window.finalizarEncuestaGlobal = async function() {
           .get();
           
         if (!periodSnapshot.empty) {
-          currentPeriod = periodSnapshot.docs[0].data();
+          const periodoDoc = periodSnapshot.docs[0];
+          currentPeriod = periodoDoc.data();
+          // Guardar también el ID del documento
+          currentPeriod.id = periodoDoc.id;
         }
       }
       

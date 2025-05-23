@@ -74,7 +74,7 @@ window.SurveyPeriodManager = (function() {
                 <input type="date" id="period-start-date" required>
                 <input type="time" id="period-start-time" required>
               </div>
-              <div class="form-help">Puede seleccionar la fecha actual o una fecha anterior si lo desea</div>
+              <div class="form-help">La fecha y hora de inicio debe ser posterior a la actual</div>
             </div>
             <div class="form-group">
               <label for="period-end-date">Fecha y hora de fin:</label>
@@ -218,10 +218,14 @@ window.SurveyPeriodManager = (function() {
     const endDate = new Date(`${endDateStr}T${endTimeStr}:00`);
     const now = new Date();
     
-    // Ya no validamos que la fecha de inicio sea posterior a la actual
-    // Simplemente aceptamos cualquier fecha de inicio
-    startDateInput.setCustomValidity('');
-    startTimeInput.setCustomValidity('');
+    // Validar fecha y hora de inicio
+    if (startDate < now) {
+      startDateInput.setCustomValidity('La fecha y hora de inicio debe ser posterior a la actual');
+      startTimeInput.setCustomValidity('La fecha y hora de inicio debe ser posterior a la actual');
+    } else {
+      startDateInput.setCustomValidity('');
+      startTimeInput.setCustomValidity('');
+    }
     
     // Validar fecha y hora de fin
     if (endDate <= startDate) {

@@ -331,7 +331,7 @@ function loadViewScript(viewName, params = {}) {
       // Luego inicializar las gráficas con un retraso
       setTimeout(initDashboardCharts, 500);
     } else {
-      // Si no existe, intentar cargar el script del dashboard primero
+      // Si no existe, cargar directamente el script del dashboard
       const dashboardScript = document.createElement('script');
       dashboardScript.src = 'js/admin/level1-dashboard.js';
       dashboardScript.onload = function() {

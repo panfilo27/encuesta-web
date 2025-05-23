@@ -46,6 +46,20 @@ window.Level1Dashboard = (function() {
       // Inicializar filtro de carrera
       initCareerFilter();
       
+      // Inicializar el gestor de periodos de encuestas
+      if (window.SurveyPeriodManager) {
+        await SurveyPeriodManager.init();
+      } else {
+        console.error('Error: El gestor de periodos no está disponible');
+      }
+      
+      // Inicializar el gestor de lista de egresados
+      if (window.GraduatesListManager) {
+        await GraduatesListManager.init();
+      } else {
+        console.error('Error: El gestor de lista de egresados no está disponible');
+      }
+      
       // Configurar evento de actualización
       const refreshBtn = document.getElementById('refresh-data');
       if (refreshBtn) {
@@ -303,14 +317,32 @@ window.Level1Dashboard = (function() {
 })();
 
 /**
- * Función global para inicializar el dashboard
- * Esta función es llamada por admin-core.js
+ * Función global de inicialización
  */
-window.initLevel1Dashboard = function(params = {}) {
-  console.log('[Level1Dashboard] Inicializando a través de función global');
-  if (window.Level1Dashboard && window.Level1Dashboard.init) {
-    return window.Level1Dashboard.init(params);
-  } else {
-    console.error('[Level1Dashboard] El módulo Level1Dashboard no está disponible');
+window.initLevel1Dashboard = async function(params = {}) {
+  console.log('[Level1Dashboard] Inicialización global solicitada');
+  
+  // Iniciar primero el gestor de periodos si está disponible
+  if (window.SurveyPeriodManager) {
+    console.log('[Level1Dashboard] Inicializando gestor de periodos...');
+    try {
+      await SurveyPeriodManager.init();
+    } catch (error) {
+      console.error('[Level1Dashboard] Error al inicializar gestor de periodos:', error);
+    }
   }
+  
+  // Luego iniciar el gestor de lista de egresados si está disponible
+  if (window.GraduatesListManager) {
+    console.log('[Level1Dashboard] Inicializando gestor de lista de egresados...');
+    try {
+      await GraduatesListManager.init();
+    } catch (error) {
+      console.error('[Level1Dashboard] Error al inicializar gestor de lista de egresados:', error);
+    }
+  }
+  
+  // Finalmente inicializar el propio dashboard
+  console.log('[Level1Dashboard] Inicializando panel principal...');
+  await Level1Dashboard.init(params);
 };

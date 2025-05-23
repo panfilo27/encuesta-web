@@ -42,13 +42,69 @@
             <div id="survey-period-details" class="status-value">No configurado</div>
           </div>
         </div>
-        <div class="status-row">
-          <div class="status-icon"><i class="far fa-clock"></i></div>
-          <div class="status-details">
-            <div class="status-label">Última actualización</div>
-            <div id="last-updated" class="status-value">Hace 0 minutos</div>
-          </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- Panel de lista de egresados registrados -->
+  <div class="graduates-panel">
+    <div class="panel-header">
+      <h3><i class="fas fa-user-graduate"></i> Egresados Registrados</h3>
+      <div class="graduates-actions">
+        <div class="search-container">
+          <input type="text" id="graduates-search" placeholder="Buscar por nombre o correo..." class="search-input">
+          <button id="search-graduates-btn" class="admin-btn admin-btn-sm admin-btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
+        <div class="filters-container">
+          <select id="filter-career-graduates" class="admin-select">
+            <option value="all">Todas las carreras</option>
+            <!-- Opciones se cargarán dinámicamente -->
+          </select>
+          <select id="filter-period-graduates" class="admin-select">
+            <option value="all">Todos los periodos</option>
+            <!-- Opciones se cargarán dinámicamente -->
+          </select>
+          <button id="apply-graduates-filters" class="admin-btn admin-btn-sm admin-btn-secondary">
+            <i class="fas fa-filter"></i> Aplicar
+          </button>
+          <button id="export-excel-graduates" class="admin-btn admin-btn-sm admin-btn-success">
+            <i class="fas fa-file-excel"></i> Exportar Excel
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="graduates-table-container">
+      <table class="graduates-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Carrera</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="graduates-list">
+          <tr class="loading-row">
+            <td colspan="4" class="text-center">
+              <div class="spinner-container">
+                <i class="fas fa-spinner fa-spin"></i> Cargando egresados...
+              </div>
+            </td>
+          </tr>
+          <!-- Los datos de egresados se cargarán dinámicamente aquí -->
+        </tbody>
+      </table>
+      <div class="table-pagination">
+        <button id="prev-page" class="pagination-btn" disabled>
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        <span id="pagination-info">Página 1 de 1</span>
+        <button id="next-page" class="pagination-btn" disabled>
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -313,6 +369,16 @@
   .kpi-large-label {
     color: #666;
     font-size: 0.8rem;
+  }
+  
+  /* Botón de exportación a Excel */
+  .admin-btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .admin-btn-success:hover {
+    background-color: #218838;
   }
   
   /* Ajustes responsivos */

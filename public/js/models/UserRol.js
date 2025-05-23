@@ -3,19 +3,22 @@
  * Gestiona la información básica del perfil del usuario para roles y datos generales.
  */
 class UserRol {
-  constructor(userId, email, nombre, apellidoPaterno, apellidoMaterno, rol = 'egresado') {
+  constructor(userId, email, nombre, apellidoPaterno, apellidoMaterno, numeroControl = '', carrera = '', rol = 'egresado') {
     this.userId = userId;
     this.email = email;
     this.nombre = nombre.trim();
     this.apellidoPaterno = apellidoPaterno.trim();
     this.apellidoMaterno = apellidoMaterno.trim();
+    this.numeroControl = numeroControl.trim();
+    this.carrera = carrera.trim(); // Nombre completo de la carrera, no ID
     this.rol = rol;
     this.fechaRegistro = firebase.firestore.FieldValue.serverTimestamp(); // Opcional: registrar cuándo se creó este perfil
+    this.encuestaCompletada = false; // Nuevo campo para rastrear si el usuario completó la encuesta
   }
 
   /**
    * Crea un objeto UserRol a partir de los datos del Módulo 1 y la información de autenticación.
-   * @param {Object} modulo1Data - Datos del formulario del Módulo 1 (debe incluir nombre, apellidoPaterno, apellidoMaterno).
+   * @param {Object} modulo1Data - Datos del formulario del Módulo 1 (debe incluir nombre, apellidoPaterno, apellidoMaterno, numeroControl, carrera).
    * @param {string} userId - ID del usuario autenticado.
    * @param {string} email - Email del usuario autenticado.
    * @returns {UserRol} - Instancia de UserRol.
@@ -25,19 +28,40 @@ class UserRol {
       console.error('[UserRol] Faltan datos para crear UserRol desde Módulo 1.');
       return null;
     }
-    // Asegúrate que modulo1Data tenga las propiedades esperadas. Ej: modulo1Data.nombre_completo.nombre
-    // Esto dependerá de la estructura exacta de tu objeto IdentificacionEgresado o similar de modulo1_data.
-    // Por ahora, asumiré que modulo1Data tiene directamente nombre, apellidoPaterno, apellidoMaterno.
-    // Acceder a las propiedades usando los nombres exactos presentes en formData (que vienen de los 'name' de los inputs HTML)
+    
+    // Extraer datos básicos del formulario
     const nombre = modulo1Data.nombre || '';
     const apellidoPaterno = modulo1Data.apellidoPaterno || '';
     const apellidoMaterno = modulo1Data.apellidoMaterno || '';
+    const numeroControl = modulo1Data.numeroControl || '';
+    
+    // Obtener el nombre de la carrera, no solo el ID
+    let carrera = modulo1Data.carreraNombre || ''; // Primero intentamos con carreraNombre si ya viene así
+    
+    // Si no está el nombre de la carrera pero sí tenemos el ID, intentamos conseguir el nombre
+    if (!carrera && modulo1Data.carrera) {
+      if (typeof modulo1Data.carrera === 'object' && modulo1Data.carrera.nombre) {
+        // Si es un objeto con un campo nombre, usamos ese valor
+        carrera = modulo1Data.carrera.nombre;
+      } else {
+        // Asumimos que es solo el ID o el nombre directamente
+        carrera = modulo1Data.carrera;
+      }
+    }
 
     if (!nombre || !apellidoPaterno) {
         console.warn('[UserRol] Nombre o Apellido Paterno no encontrados en modulo1Data para UserRol. Se usarán valores vacíos.');
     }
+    
+    if (!numeroControl) {
+        console.warn('[UserRol] Número de control no encontrado en modulo1Data.');
+    }
+    
+    if (!carrera) {
+        console.warn('[UserRol] Carrera no encontrada en modulo1Data.');
+    }
 
-    return new UserRol(userId, email, nombre, apellidoPaterno, apellidoMaterno);
+    return new UserRol(userId, email, nombre, apellidoPaterno, apellidoMaterno, numeroControl, carrera);
   }
 
   /**
@@ -51,7 +75,11 @@ class UserRol {
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
+      numeroControl: this.numeroControl,
+      carrera: this.carrera, // Nombre completo de la carrera, no ID
+      carreraAsignada: this.carrera, // Para mantener compatibilidad con el campo usado en la interfaz de admin
       rol: this.rol,
+      encuestaCompletada: this.encuestaCompletada,
       // Solo incluir fechaRegistro si se va a crear, no en cada actualización
       // Para este caso, lo guardaremos en el documento principal del usuario, así que `merge:true` se encargará.
       // Si fechaRegistro ya existe, no se sobreescribirá si se usa merge y no está en este objeto.
@@ -76,6 +104,8 @@ class UserRol {
       firestoreData.nombre,
       firestoreData.apellidoPaterno,
       firestoreData.apellidoMaterno,
+      firestoreData.numeroControl || '',
+      firestoreData.carrera || firestoreData.carreraAsignada || '',
       firestoreData.rol
     );
     // Podemos añadir más propiedades si es necesario, como fechaRegistro.

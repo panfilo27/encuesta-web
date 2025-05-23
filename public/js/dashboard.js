@@ -193,10 +193,27 @@ window.DashboardManager = (function() {
         
         console.log('[DashboardManager] Periodo activo encontrado:', currentPeriod);
         
-        // Determinar si el periodo está abierto según las fechas
+        // Determinar si el periodo está abierto según las fechas (sólo día/mes/año, ignorando horas)
         const startDate = new Date(currentPeriod.startDate.seconds * 1000);
+        const startDateNoTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        
         const endDate = new Date(currentPeriod.endDate.seconds * 1000);
-        isSurveyOpen = now >= startDate && now <= endDate;
+        const endDateNoTime = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+        
+        // Fecha actual sin horas
+        const nowNoTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        // Añadir un día a la fecha final para incluir todo el día
+        const endDatePlusOneDay = new Date(endDateNoTime);
+        endDatePlusOneDay.setDate(endDatePlusOneDay.getDate() + 1);
+        
+        // Comparar solo las fechas (sin horas/minutos)
+        console.log('[DashboardManager] Fecha inicio:', startDateNoTime);
+        console.log('[DashboardManager] Fecha fin (ajustada):', endDatePlusOneDay);
+        console.log('[DashboardManager] Fecha actual:', nowNoTime);
+        
+        isSurveyOpen = nowNoTime >= startDateNoTime && nowNoTime < endDatePlusOneDay;
+        console.log('[DashboardManager] ¿Encuesta abierta?', isSurveyOpen);
         
         // Actualizar UI del periodo
         domElements.surveyPeriodStatus.textContent = isSurveyOpen ? 'Abierta' : 'Cerrada';
@@ -241,26 +258,59 @@ window.DashboardManager = (function() {
       
       // Obtener datos del usuario
       const userDoc = await db.collection('usuarios').doc(userId).get();
+      
+      // Verificar si el documento existe
+      if (!userDoc.exists) {
+        console.log('[DashboardManager] No existe documento del usuario, es nuevo');
+        hasUserCompletedCurrentPeriod = false;
+        return;
+      }
+      
       const userData = userDoc.data();
       
-      // Si el usuario nunca ha completado una encuesta, puede proceder
-      if (!userData.encuestaCompletada || !userData.ultimaFechaCompletada) {
+      // Verificar si userData tiene las propiedades necesarias
+      if (!userData || !userData.encuestaCompletada || !userData.ultimaFechaCompletada) {
         console.log('[DashboardManager] El usuario nunca ha completado una encuesta');
         hasUserCompletedCurrentPeriod = false;
         return;
       }
       
-      // Convertir fechas para comparación
+      // Verificar si el usuario ha completado la encuesta en este periodo específico
+      // Intentar primero verificar directamente en la colección historialEncuestas
+      console.log('[DashboardManager] Verificando en historialEncuestas del usuario', userId);
+      
+      // Convertir fechas para comparación (sin considerar horas)
       const ultimaFecha = userData.ultimaFechaCompletada.toDate();
+      const ultimaFechaNoTime = new Date(ultimaFecha.getFullYear(), ultimaFecha.getMonth(), ultimaFecha.getDate());
+      
       const periodoInicio = currentPeriod.startDate.toDate();
+      const periodoInicioNoTime = new Date(periodoInicio.getFullYear(), periodoInicio.getMonth(), periodoInicio.getDate());
       
-      // IMPORTANTE: Si la última encuesta completada fue después del inicio del periodo actual,
-      // significa que ya completó la encuesta en este periodo
-      hasUserCompletedCurrentPeriod = ultimaFecha >= periodoInicio;
-      
-      console.log('[DashboardManager] Última encuesta completada:', ultimaFecha);
-      console.log('[DashboardManager] Inicio del periodo actual:', periodoInicio);
-      console.log('[DashboardManager] ¿Usuario completó encuesta en periodo actual?', hasUserCompletedCurrentPeriod);
+      // Segunda verificación: Comprobar directamente en historialEncuestas
+      try {
+        // Buscar encuestas completadas después del inicio del periodo actual
+        const historialEncuestasRef = db.collection('usuarios').doc(userId).collection('historialEncuestas');
+        const encuestasEnPeriodo = await historialEncuestasRef
+          .where('fechaCompletado', '>=', currentPeriod.startDate)
+          .limit(1)
+          .get();
+          
+        if (!encuestasEnPeriodo.empty) {
+          console.log('[DashboardManager] Se encontró una encuesta completada en este periodo');
+          hasUserCompletedCurrentPeriod = true;
+        } else {
+          // Verificación por fecha sin horas (método anterior como respaldo)
+          console.log('[DashboardManager] Comparando fechas sin horas:');
+          console.log('  - Última encuesta completada:', ultimaFechaNoTime);
+          console.log('  - Inicio del periodo actual:', periodoInicioNoTime);
+          hasUserCompletedCurrentPeriod = ultimaFechaNoTime >= periodoInicioNoTime;
+          console.log('[DashboardManager] ¿Usuario completó encuesta en periodo actual?', hasUserCompletedCurrentPeriod);
+        }
+      } catch (historialError) {
+        console.error('[DashboardManager] Error al verificar historialEncuestas:', historialError);
+        // Si falla la verificación en historial, usar el método antiguo como respaldo
+        hasUserCompletedCurrentPeriod = ultimaFechaNoTime >= periodoInicioNoTime;
+      }
       
     } catch (error) {
       console.error('[DashboardManager] Error al verificar estado de encuesta:', error);
