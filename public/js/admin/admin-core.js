@@ -301,25 +301,45 @@ function loadViewScript(viewName, params = {}) {
     // Función para inicializar gráficas después del dashboard
     const initDashboardCharts = () => {
       console.log('[Admin Core] Preparando inicialización de gráficas del dashboard');
-      if (window.initAdminCharts) {
-        // Verificar que el contenedor de gráficas existe
-        const chartsContainer = document.querySelector('.charts-container');
-        if (chartsContainer) {
-          console.log('[Admin Core] DOM listo, inicializando gráficas del dashboard');
+      
+      // Verificar primero si el contenedor de gráficas existe
+      const chartsContainer = document.querySelector('.charts-container');
+      if (!chartsContainer) {
+        console.error('[Admin Core] No se encontró el contenedor de gráficas en el DOM');
+        return;
+      }
+      
+      // Verificar si la función de inicialización está disponible
+      if (window.initAdminCharts && typeof window.initAdminCharts === 'function') {
+        console.log('[Admin Core] DOM listo, inicializando gráficas del dashboard');
+        try {
           window.initAdminCharts();
-        } else {
-          console.error('[Admin Core] No se encontró el contenedor de gráficas en el DOM');
+        } catch (error) {
+          console.error('[Admin Core] Error al inicializar gráficas:', error);
         }
       } else {
-        console.error('[Admin Core] La función initAdminCharts no está disponible');
+        console.log('[Admin Core] La función initAdminCharts no está disponible. Intentando cargar el script...');
+        
         // Intentar cargar el script manualmente
         const script = document.createElement('script');
         script.src = 'js/admin/charts/admin-chart-manager.js';
         script.onload = function() {
-          if (window.initAdminCharts) {
-            window.initAdminCharts();
+          console.log('[Admin Core] Script de gráficas cargado manualmente');
+          if (window.initAdminCharts && typeof window.initAdminCharts === 'function') {
+            try {
+              window.initAdminCharts();
+            } catch (error) {
+              console.error('[Admin Core] Error al inicializar gráficas después de carga manual:', error);
+            }
+          } else {
+            console.error('[Admin Core] La función initAdminCharts sigue sin estar disponible después de cargar el script');
           }
         };
+        
+        script.onerror = function(e) {
+          console.error('[Admin Core] Error al cargar el script de gráficas:', e);
+        };
+        
         document.body.appendChild(script);
       }
     };

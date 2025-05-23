@@ -54,8 +54,8 @@ window.Level1Dashboard = (function() {
       }
       
       // Inicializar el gestor de lista de egresados
-      if (window.GraduatesListManager) {
-        await GraduatesListManager.init();
+      if (window.GraduatesListManager && typeof window.GraduatesListManager.init === 'function') {
+        await window.GraduatesListManager.init();
       } else {
         console.error('Error: El gestor de lista de egresados no está disponible');
       }

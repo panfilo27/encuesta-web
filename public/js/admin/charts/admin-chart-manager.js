@@ -603,5 +603,9 @@ window.AdminCharts = window.AdminCharts || (function() {
 // La función initCharts será llamada desde admin-core.js cuando la vista esté lista
 window.initAdminCharts = function() {
   console.log('[AdminCharts] Initializing from external call');
-  AdminCharts.init();
+  if (window.AdminCharts && typeof window.AdminCharts.init === 'function') {
+    window.AdminCharts.init();
+  } else {
+    console.error('[AdminCharts] Error: El objeto AdminCharts no está disponible o no tiene un método init');
+  }
 };
