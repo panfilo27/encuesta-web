@@ -54,10 +54,27 @@ window.Level1Dashboard = (function() {
       }
       
       // Inicializar el gestor de lista de egresados
+      // Si no está disponible, intentamos esperar a que se cargue (máximo 3 segundos)
+      if (!window.GraduatesListManager || typeof window.GraduatesListManager.init !== 'function') {
+        console.log('[Level1Dashboard] Esperando a que el gestor de lista de egresados se cargue...');
+        
+        // Intentar esperar a que GraduatesListManager se cargue (máx 3 segundos)
+        let waitTime = 0;
+        const checkInterval = 300; // ms
+        const maxWaitTime = 3000; // 3 segundos máximo
+        
+        while (!window.GraduatesListManager && waitTime < maxWaitTime) {
+          await new Promise(resolve => setTimeout(resolve, checkInterval));
+          waitTime += checkInterval;
+        }
+      }
+      
+      // Intentar inicializar después de esperar
       if (window.GraduatesListManager && typeof window.GraduatesListManager.init === 'function') {
         await window.GraduatesListManager.init();
       } else {
-        console.error('Error: El gestor de lista de egresados no está disponible');
+        console.error('Error: El gestor de lista de egresados no está disponible después de esperar');
+        // Continuar de todos modos, solo que sin funcionalidad de lista de egresados
       }
       
       // Configurar evento de actualización
