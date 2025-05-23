@@ -4,7 +4,8 @@
  */
 
 // Namespace principal para gráficas de administrador
-const AdminCharts = (function() {
+// Evitar redeclaraciones verificando si ya existe
+window.AdminCharts = window.AdminCharts || (function() {
   // Variables privadas
   let db;
   let careerFilter = 'all';
