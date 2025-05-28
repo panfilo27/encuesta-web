@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="css/hourglass-loader.css">
   <link rel="stylesheet" href="css/admin/admin-layout.css">
   <link rel="stylesheet" href="css/admin/admin-charts.css">
-  <link rel="stylesheet" href="css/admin/admin-graduates-list.css">
   
   <style>
     .welcome-message {
@@ -159,21 +158,28 @@
         </div>
       </div>
       
-      <!-- Lista de egresados registrados -->
+      <!-- Lista de Egresados Registrados -->
       <div class="graduates-panel">
         <div class="panel-header">
           <h3><i class="fas fa-user-graduate"></i> Egresados Registrados</h3>
           <div class="graduates-actions">
             <div class="search-container">
               <input type="text" id="graduates-search" placeholder="Buscar por nombre o correo..." class="search-input">
-              <button id="search-graduates-btn" class="admin-btn admin-btn-sm admin-btn-primary"><i class="fas fa-search"></i></button>
+              <button id="search-graduates-btn" class="admin-btn admin-btn-sm admin-btn-primary">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
             <div class="filters-container">
+              <!-- Filtro de periodo -->
               <select id="filter-period-graduates" class="admin-select">
                 <option value="all">Todos los periodos</option>
               </select>
-              <button id="apply-graduates-filters" class="admin-btn admin-btn-sm admin-btn-secondary"><i class="fas fa-filter"></i> Aplicar</button>
-              <button id="export-excel-graduates" class="admin-btn admin-btn-sm admin-btn-success"><i class="fas fa-file-excel"></i> Exportar Excel</button>
+              <button id="apply-graduates-filters" class="admin-btn admin-btn-sm admin-btn-secondary">
+                <i class="fas fa-filter"></i> Aplicar
+              </button>
+              <button id="export-excel-graduates" class="admin-btn admin-btn-sm admin-btn-success">
+                <i class="fas fa-file-excel"></i> Exportar Excel
+              </button>
             </div>
           </div>
         </div>
@@ -182,20 +188,29 @@
             <thead>
               <tr>
                 <th>Nombre</th>
+                <th>Carrera</th>
                 <th>Correo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="graduates-list">
               <tr class="loading-row">
-                <td colspan="3" class="text-center"><div class="spinner-container"><i class="fas fa-spinner fa-spin"></i> Cargando egresados...</div></td>
+                <td colspan="4" class="text-center">
+                  <div class="spinner-container">
+                    <i class="fas fa-spinner fa-spin"></i> Cargando egresados...
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
           <div class="table-pagination">
-            <button id="prev-page" class="pagination-btn" disabled><i class="fas fa-chevron-left"></i> Anterior</button>
+            <button id="prev-page" class="pagination-btn" disabled>
+              <i class="fas fa-chevron-left"></i> Anterior
+            </button>
             <span id="pagination-info">Página 1 de 1</span>
-            <button id="next-page" class="pagination-btn" disabled>Siguiente <i class="fas fa-chevron-right"></i></button>
+            <button id="next-page" class="pagination-btn" disabled>
+              Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -207,9 +222,10 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="js/firebase-init.js"></script>
-  <script src="js/department-head.js"></script>
+  <!-- Dependencias para exportar y listar egresados -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="js/admin/excel-export-service.js"></script>
   <script src="js/admin/graduates-list-manager.js"></script>
+  <script src="js/department-head.js"></script>
 </body>
 </html>
