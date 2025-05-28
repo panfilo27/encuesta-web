@@ -104,9 +104,8 @@ window.Level1Dashboard = (function() {
         console.warn('[Level1Dashboard] El gestor de periodos no está disponible');
       }
       
-      // Cargar datos iniciales
-      await loadData();
-      
+      // Cargar datos iniciales aplicando filtro de carrera
+      await applyFilters();
     } catch (error) {
       console.error("Error durante la inicialización:", error);
       dashboardInitialized = false; // Permitir reintentar la inicialización en caso de error

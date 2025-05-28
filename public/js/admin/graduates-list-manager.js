@@ -111,6 +111,9 @@ window.GraduatesListManager = (function() {
     // Cargar datos iniciales
     await loadData();
     
+    // Aplicar filtro por defecto al departamento (carrera) del jefe de departamento
+    filterGraduates();
+    
     initialized = true;
     console.log('[Graduates List Manager] Inicializado correctamente');
   }
@@ -160,11 +163,12 @@ window.GraduatesListManager = (function() {
       graduatesList = await Promise.all(usersSnapshot.docs.map(async doc => {
         const userData = doc.data();
         
-        // Obtener carrera del usuario desde los datos ya cargados
+        // Obtener carrera del usuario desde los datos cargados en `careers`
         let careerName = 'No especificada';
         if (userData.carrera) {
-          // La carrera puede ser directamente el nombre
-          careerName = userData.carrera;
+          // Intentar encontrar el nombre usando el ID
+          const careerObj = careers.find(c => c.id === userData.carrera);
+          careerName = careerObj && careerObj.nombre ? careerObj.nombre : userData.carrera;
         }
         
         // Cargar historial de encuestas para este usuario
@@ -251,7 +255,9 @@ window.GraduatesListManager = (function() {
    */
   function filterGraduates() {
     const searchQuery = searchInput.value.toLowerCase().trim();
-    const selectedCareer = careerFilter ? careerFilter.value : 'all';
+    // Valor por defecto: nombre de la carrera del jefe de departamento
+    const defaultCareer = (window.currentCareerData && window.currentCareerData.nombre) ? window.currentCareerData.nombre : 'all';
+    const selectedCareer = careerFilter ? careerFilter.value : defaultCareer;
     const selectedPeriod = periodFilter ? periodFilter.value : 'all';
     
     console.log('[Debug] Filtro de carrera seleccionado:', selectedCareer);

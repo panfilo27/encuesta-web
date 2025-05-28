@@ -181,6 +181,8 @@ async function cargarDatosCarrera(carreraId) {
       id: carreraId,
       ...carreraData
     };
+    // Exponer datos de carrera en el ámbito global para filtro por defecto
+    window.currentCareerData = currentCareerData;
     
     console.log('[Department Head] Datos de carrera cargados:', currentCareerData);
     
