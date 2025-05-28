@@ -222,24 +222,28 @@ window.GraduatesListManager = (function() {
    * Llena los selectores de filtros con datos
    */
   function populateFilters() {
-    // Llenar selector de carreras
-    careerFilter.innerHTML = '<option value="all">Todas las carreras</option>';
-    careers.forEach(career => {
-      const option = document.createElement('option');
-      option.value = career.nombre; // Usamos el nombre como valor, no el ID
-      option.textContent = career.nombre;
-      careerFilter.appendChild(option);
-    });
-    
-    // Llenar selector de periodos
-    periodFilter.innerHTML = '<option value="all">Todos los periodos</option>';
-    periods.forEach(period => {
-      const startDate = period.startDate.toDate ? period.startDate.toDate() : new Date(period.startDate.seconds * 1000);
-      const option = document.createElement('option');
-      option.value = period.id;
-      option.textContent = period.name || formatDate(startDate);
-      periodFilter.appendChild(option);
-    });
+    if (careerFilter) {
+      // Llenar selector de carreras
+      careerFilter.innerHTML = '<option value="all">Todas las carreras</option>';
+      careers.forEach(career => {
+        const option = document.createElement('option');
+        option.value = career.nombre; // Usamos el nombre como valor, no el ID
+        option.textContent = career.nombre;
+        careerFilter.appendChild(option);
+      });
+    }
+
+    if (periodFilter) {
+      // Llenar selector de periodos
+      periodFilter.innerHTML = '<option value="all">Todos los periodos</option>';
+      periods.forEach(period => {
+        const startDate = period.startDate.toDate ? period.startDate.toDate() : new Date(period.startDate.seconds * 1000);
+        const option = document.createElement('option');
+        option.value = period.id;
+        option.textContent = period.name || formatDate(startDate);
+        periodFilter.appendChild(option);
+      });
+    }
   }
   
   /**
@@ -247,8 +251,8 @@ window.GraduatesListManager = (function() {
    */
   function filterGraduates() {
     const searchQuery = searchInput.value.toLowerCase().trim();
-    const selectedCareer = careerFilter.value;
-    const selectedPeriod = periodFilter.value;
+    const selectedCareer = careerFilter ? careerFilter.value : 'all';
+    const selectedPeriod = periodFilter ? periodFilter.value : 'all';
     
     console.log('[Debug] Filtro de carrera seleccionado:', selectedCareer);
     
